@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-import { getAuth0, isAuth0Configured } from "@/lib/auth0";
+import { auth0, isAuth0Configured } from "@/lib/auth0";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = isAuth0Configured()
-    ? await getAuth0().getSession()
-    : null;
+  const session = isAuth0Configured() ? await auth0.getSession() : null;
   const userLabel =
     session?.user?.name ?? session?.user?.email ?? undefined;
 
@@ -35,9 +33,9 @@ export default async function RootLayout({
     <html lang="en">
       {/* Apply the geist fonts to the body class list */}
       <body className={`${geistSans.variable} ${geistMono.variable} flex bg-white antialiased`}>
-        <Sidebar />
+        <Sidebar userLabel={userLabel} />
         <div className="flex-1 ml-64 flex flex-col min-h-screen">
-          <Header userLabel={userLabel} />
+          <Header />
           <main className="flex-1 p-8 bg-[#D5D5D5]/20">
             {children}
           </main>

@@ -23,3 +23,17 @@ export function getAuth0(): Auth0Client {
   client ??= new Auth0Client();
   return client;
 }
+
+/**
+ * Lazy `Auth0Client` — matches Auth0 quickstarts (`auth0.middleware(request)`).
+ * Prefer not touching this until `isAuth0Configured()` is true.
+ */
+export const auth0 = new Proxy({} as Auth0Client, {
+  get(_target, prop) {
+    const c = getAuth0();
+    const value = Reflect.get(c, prop as keyof Auth0Client);
+    return typeof value === "function"
+      ? (value as (...args: unknown[]) => unknown).bind(c)
+      : value;
+  },
+});
