@@ -5,7 +5,7 @@ const Sidebar = () => {
     <aside className="w-64 bg-[#FFFFFF] h-screen flex flex-col text-[#000000] fixed left-0 top-0 border-r border-[#D5D5D5]">
       {/* Brand Logo Area - Using Vibrant Blue for the logo text */}
       <div className="p-6 border-b border-[#D5D5D5] font-bold text-2xl tracking-tighter text-[#0099FF]">
-        AXIS
+        DatumGrid
       </div>
 
       <nav className="flex-1 p-4 space-y-2">

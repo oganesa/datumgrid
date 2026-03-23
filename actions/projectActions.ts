@@ -1,27 +1,31 @@
-'use server'; // This tells Next.js this code only runs on the server
+"use server";
+
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/models/Project";
 import { revalidatePath } from "next/cache";
 
 export async function createProject(formData: FormData) {
-  await connectDB();
-
-  // Extract values from the form [cite: 532, 533]
-  const projectData = {
-    name: formData.get('name'),
-    number: formData.get('number'),
-    description: formData.get('description'),
-    startDate: formData.get('startDate'),
-    endDate: formData.get('endDate'),
-    status: "Active", // Default per your requirement [cite: 87]
-  };
-
   try {
+    await connectDB();
+
+    const projectData = {
+      name: formData.get("name"),
+      number: formData.get("number"),
+      description: formData.get("description"),
+      startDate: formData.get("startDate") || null,
+      endDate: formData.get("endDate") || null,
+      status: "Active",
+    };
+
     await Project.create(projectData);
-    revalidatePath('/projects'); // Refresh the project list page
+
+    revalidatePath("/projects");
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Save Error:", error);
-    return { success: false };
+    return {
+      success: false,
+      error: error.message ?? "Unknown error",
+    };
   }
 }

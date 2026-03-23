@@ -11,7 +11,7 @@ const NewProjectModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
     if (result.success) {
       onClose(); // Close the pop-up only if the save worked
     } else {
-      alert("Failed to save project. Check your database connection.");
+      alert(result.error);
     }
   }
 
