@@ -41,6 +41,15 @@ export async function proxy(request: Request) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // Server Actions POST with `next-action` header must not go through Auth0's
+  // middleware response handling — it breaks the RSC action protocol and causes
+  // "An unexpected response was received from the server."
+  const isServerActionPost =
+    request.method === "POST" && request.headers.has("next-action");
+  if (isServerActionPost) {
+    return NextResponse.next();
+  }
+
   const authResponse = await auth0.middleware(request);
   return authResponse;
 }

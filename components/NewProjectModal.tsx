@@ -5,11 +5,13 @@ import { createProject } from "@/actions/projectActions";
 const NewProjectModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
 
-  // This helper function handles the submission and then closes the modal
-  async function handleSubmit(formData: FormData) {
+  async function onSubmitForm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
     const result = await createProject(formData);
     if (result.success) {
-      onClose(); // Close the pop-up only if the save worked
+      onClose();
+      e.currentTarget.reset();
     } else {
       alert(result.error);
     }
@@ -23,8 +25,7 @@ const NewProjectModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
           <button onClick={onClose} className="hover:text-gray-200">✕</button>
         </div>
 
-        {/* 1. Added the 'action' attribute here */}
-        <form action={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={onSubmitForm} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-xs text-[#808080] mb-1">Project Name*</label>
