@@ -1,4 +1,6 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+
+import "./Customer";
 
 const ProjectSchema = new Schema(
   {
@@ -8,12 +10,28 @@ const ProjectSchema = new Schema(
     startDate: Date,
     endDate: Date,
     status: { type: String, default: "Active" },
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    zipCode: String,
+    country: String,
+    customerName: String,
+    customerId: { type: Schema.Types.ObjectId, ref: "Customer", default: null },
+    /** Public URL path e.g. /uploads/projects/{id}/cover.jpg */
+    coverImageUrl: { type: String, default: null },
   },
   { timestamps: true }
 );
 
-// ✅ CRITICAL LINE
-const Project =
-  models.Project || model("Project", ProjectSchema);
+/**
+ * Next.js dev / hot reload can keep a stale compiled model without new paths.
+ * Without this, populate("customerId") throws StrictPopulateError after schema changes.
+ */
+if (mongoose.models.Project) {
+  delete mongoose.models.Project;
+}
+
+const Project = model("Project", ProjectSchema);
 
 export default Project;

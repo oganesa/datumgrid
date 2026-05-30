@@ -1,14 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 type Project = {
   _id: string;
   name: string;
   number: string;
-  description?: string;
-  startDate?: string;
-  endDate?: string;
+  description?: string | null;
+  customerName?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
   status: string;
   createdAt: string;
 };
@@ -16,6 +18,7 @@ type Project = {
 type SortKey =
   | 'number'
   | 'name'
+  | 'customerName'
   | 'startDate'
   | 'endDate'
   | 'status'
@@ -35,10 +38,8 @@ export default function ProjectsTable({ projects }: { projects: Project[] }) {
   }
 
   const sortedProjects = [...projects].sort((a, b) => {
-    const aVal = a[sortKey];
-    const bVal = b[sortKey];
-
-    if (!aVal || !bVal) return 0;
+    const aVal = String(a[sortKey] ?? '');
+    const bVal = String(b[sortKey] ?? '');
 
     if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
     if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
@@ -71,6 +72,14 @@ export default function ProjectsTable({ projects }: { projects: Project[] }) {
             >
               Project Name
               <SortIcon column="name" />
+            </th>
+
+            <th
+              className="px-4 py-3 border text-left cursor-pointer"
+              onClick={() => onSort('customerName')}
+            >
+              Customer
+              <SortIcon column="customerName" />
             </th>
 
             <th className="px-4 py-3 border text-left">
@@ -114,8 +123,25 @@ export default function ProjectsTable({ projects }: { projects: Project[] }) {
         <tbody>
           {sortedProjects.map((project) => (
             <tr key={project._id} className="hover:bg-gray-50">
-              <td className="px-4 py-2 border">{project.number}</td>
-              <td className="px-4 py-2 border font-medium">{project.name}</td>
+              <td className="px-4 py-2 border">
+                <Link
+                  href={`/projects/${project._id}`}
+                  className="font-medium text-[#0099FF] hover:underline"
+                >
+                  {project.number}
+                </Link>
+              </td>
+              <td className="px-4 py-2 border font-medium">
+                <Link
+                  href={`/projects/${project._id}`}
+                  className="text-[#0099FF] hover:underline"
+                >
+                  {project.name}
+                </Link>
+              </td>
+              <td className="px-4 py-2 border text-gray-800">
+                {project.customerName?.trim() ? project.customerName : '—'}
+              </td>
               <td className="px-4 py-2 border truncate max-w-[300px]">
                 {project.description || '-'}
               </td>

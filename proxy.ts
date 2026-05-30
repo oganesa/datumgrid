@@ -56,6 +56,10 @@ export async function proxy(request: Request) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    /*
+     * Skip static assets in `public/` (e.g. /datumgrid-logo.png) so the auth
+     * layer never returns HTML/redirect for image/font requests.
+     */
+    "/((?!_next/static|_next/image|_next/data|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:ico|png|jpg|jpeg|gif|webp|svg|woff2?|ttf|eot)$).*)",
   ],
 };

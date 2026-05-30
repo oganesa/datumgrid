@@ -17,6 +17,12 @@
 /.next/
 /out/
 
+# user-uploaded project assets (local dev)
+/public/uploads/
+
+# equipment guidance uploads (API-served, not committed)
+/uploads/
+
 # production
 /build
 

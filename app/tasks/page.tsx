@@ -1,5 +1,13 @@
 import ModuleComingSoon from "@/components/ModuleComingSoon";
+import ModuleDisabled from "@/components/ModuleDisabled";
+import { getAppSettings } from "@/lib/app-settings";
 
-export default function TasksPage() {
-  return <ModuleComingSoon title="Tasks" />;
+export const dynamic = "force-dynamic";
+
+export default async function TasksPage() {
+  const settings = await getAppSettings();
+  if (!settings.tasksEnabled) {
+    return <ModuleDisabled title="Tasks" />;
+  }
+  return <ModuleComingSoon />;
 }

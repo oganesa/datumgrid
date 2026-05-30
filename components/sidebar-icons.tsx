@@ -170,6 +170,38 @@ export function PunchListIcon({ active, className }: IconProps) {
   );
 }
 
+export function CommissioningIcon({ active, className }: IconProps) {
+  return (
+    <svg
+      className={`${base(active)} ${className ?? ""}`}
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
+export function CustomerIcon({ active, className }: IconProps) {
+  return (
+    <svg
+      className={`${base(active)} ${className ?? ""}`}
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
 export function VendorsIcon({ active, className }: IconProps) {
   return (
     <svg

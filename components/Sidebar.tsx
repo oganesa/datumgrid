@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import type { ComponentType } from "react";
 
+import type { SidebarFeatureFlags } from "@/lib/app-settings";
+
 import {
   BudgetsIcon,
   CatalogIcon,
@@ -13,39 +15,73 @@ import {
   FilesIcon,
   ProjectsIcon,
   PunchListIcon,
+  CommissioningIcon,
   ReportsIcon,
   RfiIcon,
   RisksIcon,
   SettingsIcon,
   SubmittalsIcon,
   TasksIcon,
+  CustomerIcon,
   VendorsIcon,
 } from "@/components/sidebar-icons";
 
 type NavIcon = ComponentType<{ active: boolean }>;
 
-const MODULES_AFTER_MAIN: { href: string; label: string; Icon: NavIcon }[] = [
-  { href: "/tasks", label: "Tasks", Icon: TasksIcon },
-  { href: "/budgets", label: "Budgets", Icon: BudgetsIcon },
-];
-
-const CONSTRUCTION_MANAGEMENT_MODULES: {
+type ConstructionNavItem = {
   href: string;
   label: string;
   Icon: NavIcon;
-}[] = [
+  feature?: keyof SidebarFeatureFlags;
+};
+
+type MainNavItem = {
+  href: string;
+  label: string;
+  Icon: NavIcon;
+  feature?: keyof SidebarFeatureFlags;
+};
+
+const MODULES_AFTER_MAIN: MainNavItem[] = [
+  { href: "/tasks", label: "Tasks", Icon: TasksIcon, feature: "tasks" },
+  { href: "/budgets", label: "Budgets", Icon: BudgetsIcon, feature: "budgets" },
+];
+
+const CONSTRUCTION_MANAGEMENT_MODULES: ConstructionNavItem[] = [
   {
     href: "/change-management",
     label: "Change Management",
     Icon: ChangeManagementIcon,
+    feature: "changeManagement",
   },
-  { href: "/rfi", label: "RFI", Icon: RfiIcon },
-  { href: "/submittals", label: "Submittals", Icon: SubmittalsIcon },
-  { href: "/risks-issue-log", label: "Risks/Issue log", Icon: RisksIcon },
-  { href: "/punch-list", label: "Punch List", Icon: PunchListIcon },
+  { href: "/rfi", label: "RFI", Icon: RfiIcon, feature: "rfi" },
+  {
+    href: "/submittals",
+    label: "Submittals",
+    Icon: SubmittalsIcon,
+    feature: "submittals",
+  },
+  {
+    href: "/risks-issue-log",
+    label: "Risks/Issue log",
+    Icon: RisksIcon,
+    feature: "risksIssueLog",
+  },
+  {
+    href: "/punch-list",
+    label: "Punch List",
+    Icon: PunchListIcon,
+    feature: "punchList",
+  },
+  {
+    href: "/commissioning",
+    label: "Commissioning",
+    Icon: CommissioningIcon,
+  },
 ];
 
 const MORE_MODULES: { href: string; label: string; Icon: NavIcon }[] = [
+  { href: "/customers", label: "Customer", Icon: CustomerIcon },
   { href: "/vendors", label: "Vendors", Icon: VendorsIcon },
   { href: "/catalog", label: "Catalog", Icon: CatalogIcon },
   { href: "/files", label: "Files", Icon: FilesIcon },
@@ -53,18 +89,44 @@ const MORE_MODULES: { href: string; label: string; Icon: NavIcon }[] = [
   { href: "/settings", label: "Settings", Icon: SettingsIcon },
 ];
 
-type SidebarProps = {
-  userLabel?: string;
+const DEFAULT_FLAGS: SidebarFeatureFlags = {
+  tasks: true,
+  budgets: true,
+  risksIssueLog: true,
+  changeManagement: true,
+  rfi: true,
+  submittals: true,
+  punchList: true,
 };
 
-const Sidebar = ({ userLabel }: SidebarProps) => {
+type SidebarProps = {
+  userLabel?: string;
+  featureFlags?: SidebarFeatureFlags;
+};
+
+const Sidebar = ({
+  userLabel,
+  featureFlags = DEFAULT_FLAGS,
+}: SidebarProps) => {
   const pathname = usePathname();
-  const projectsActive = pathname === "/";
+  const projectsActive = pathname === "/" || pathname.startsWith("/projects/");
 
   return (
     <aside className="w-64 bg-[#FFFFFF] h-screen flex flex-col text-[#000000] fixed left-0 top-0 border-r border-[#D5D5D5]">
-      <div className="p-6 border-b border-[#D5D5D5] font-bold text-2xl tracking-tighter text-[#0099FF]">
-        DatumGrid
+      <div className="border-b border-[#D5D5D5] bg-white px-6 py-5">
+        <Link
+          href="/"
+          className="block rounded-sm bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#243757] focus-visible:ring-offset-2"
+        >
+          <img
+            src="/datumgrid-logo.png"
+            alt="DatumGrid"
+            width={220}
+            height={56}
+            decoding="async"
+            className="block h-9 w-auto max-w-full bg-transparent object-contain object-left"
+          />
+        </Link>
       </div>
 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
@@ -92,7 +154,9 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
           Collaboration
         </a>
 
-        {MODULES_AFTER_MAIN.map(({ href, label, Icon }) => {
+        {MODULES_AFTER_MAIN.filter(
+          (m) => !m.feature || featureFlags[m.feature]
+        ).map(({ href, label, Icon }) => {
           const active = pathname === href;
           return (
             <Link
@@ -114,7 +178,9 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
           Construction management
         </div>
 
-        {CONSTRUCTION_MANAGEMENT_MODULES.map(({ href, label, Icon }) => {
+        {CONSTRUCTION_MANAGEMENT_MODULES.filter(
+          (m) => !m.feature || featureFlags[m.feature]
+        ).map(({ href, label, Icon }) => {
           const active = pathname === href;
           return (
             <Link
