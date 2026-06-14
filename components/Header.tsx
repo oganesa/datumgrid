@@ -7,8 +7,6 @@ import { useHeaderTitle } from "@/components/HeaderTitleContext";
 import { pageTitleForPathname } from "@/lib/page-header";
 
 import NewProjectModal from "./NewProjectModal";
-import NewCustomerModal from "./NewCustomerModal";
-import NewVendorModal from "./NewVendorModal";
 import NewCostGroupModal from "./catalog/NewCostGroupModal";
 import NewCostItemModal from "./catalog/NewCostItemModal";
 
@@ -17,12 +15,8 @@ const Header = () => {
   const router = useRouter();
   const { titleOverride } = useHeaderTitle();
   const isCatalog = pathname === "/catalog";
-  const isCustomers = pathname === "/customers";
-  const isVendors = pathname === "/vendors";
 
   const [projectOpen, setProjectOpen] = useState(false);
-  const [customerOpen, setCustomerOpen] = useState(false);
-  const [vendorOpen, setVendorOpen] = useState(false);
   const [groupOpen, setGroupOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
 
@@ -54,22 +48,6 @@ const Header = () => {
                 + New cost item
               </button>
             </>
-          ) : isCustomers ? (
-            <button
-              type="button"
-              onClick={() => setCustomerOpen(true)}
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#2AAAFF]"
-            >
-              + New customer
-            </button>
-          ) : isVendors ? (
-            <button
-              type="button"
-              onClick={() => setVendorOpen(true)}
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#2AAAFF]"
-            >
-              + New vendor
-            </button>
           ) : (
             <button
               type="button"
@@ -83,16 +61,6 @@ const Header = () => {
       </header>
 
       <NewProjectModal isOpen={projectOpen} onClose={() => setProjectOpen(false)} />
-      <NewCustomerModal
-        isOpen={customerOpen}
-        onClose={() => setCustomerOpen(false)}
-        onSuccess={refresh}
-      />
-      <NewVendorModal
-        isOpen={vendorOpen}
-        onClose={() => setVendorOpen(false)}
-        onSuccess={refresh}
-      />
       <NewCostGroupModal
         isOpen={groupOpen}
         onClose={() => setGroupOpen(false)}

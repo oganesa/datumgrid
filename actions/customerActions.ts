@@ -57,3 +57,42 @@ export async function createCustomer(formData: FormData): Promise<
     return { success: false as const, error: message };
   }
 }
+
+export async function updateCustomer(
+  id: string,
+  formData: FormData
+): Promise<{ success: true } | { success: false; error: string }> {
+  try {
+    await connectDB();
+
+    const name = optionalString(formData, "name");
+    if (!name) {
+      return { success: false as const, error: "Customer name is required." };
+    }
+
+    const doc = await Customer.findById(id);
+    if (!doc) {
+      return { success: false as const, error: "Customer not found." };
+    }
+
+    doc.name = name;
+    doc.address1 = optionalString(formData, "address1");
+    doc.address2 = optionalString(formData, "address2");
+    doc.city = optionalString(formData, "city");
+    doc.state = optionalString(formData, "state");
+    doc.zipCode = optionalString(formData, "zipCode");
+    doc.country = optionalString(formData, "country");
+    doc.phone = optionalString(formData, "phone");
+    doc.email = optionalString(formData, "email");
+    doc.web = optionalString(formData, "web");
+    await doc.save();
+
+    revalidatePath("/");
+    revalidatePath("/customers");
+    return { success: true as const };
+  } catch (error: unknown) {
+    console.error("updateCustomer:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return { success: false as const, error: message };
+  }
+}

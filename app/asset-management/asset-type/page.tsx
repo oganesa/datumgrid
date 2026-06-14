@@ -1,10 +1,10 @@
+import AssetTypeClient from "@/components/asset-type/AssetTypeClient";
+import { getAllAssetTypes } from "@/lib/asset-types";
 import { auth0, isAuth0Configured } from "@/lib/auth0";
-import VendorsTable from "@/components/VendorsTable";
-import { getVendors } from "@/lib/vendors";
 
 export const dynamic = "force-dynamic";
 
-export default async function VendorsPage() {
+export default async function AssetTypePage() {
   const session = isAuth0Configured() ? await auth0.getSession() : null;
 
   if (!session) {
@@ -32,11 +32,12 @@ export default async function VendorsPage() {
     );
   }
 
-  const vendors = await getVendors();
+  const assetTypes = await getAllAssetTypes();
 
   return (
     <div className="p-6">
-      <VendorsTable vendors={vendors} />
+      <h1 className="mb-6 text-xl font-semibold text-gray-900">Asset type</h1>
+      <AssetTypeClient assetTypes={assetTypes} />
     </div>
   );
 }

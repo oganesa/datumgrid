@@ -11,11 +11,20 @@ import {
 const inputClass =
   "w-full rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]";
 
+type DefaultAddressValues = {
+  address1?: string | null;
+  address2?: string | null;
+  city?: string | null;
+  state?: string | null;
+  zipCode?: string | null;
+  country?: string | null;
+};
+
 /**
  * US address fields. With a Maps API key, line 1 uses Places predictions + getDetails
  * in a custom list (avoids Google's .pac-container bugs inside scrollable modals).
  */
-export default function UsAddressFields() {
+export default function UsAddressFields({ defaultValues }: { defaultValues?: DefaultAddressValues }) {
   const mapsEnabled = isGoogleMapsConfigured();
 
   const address2Ref = useRef<HTMLInputElement>(null);
@@ -24,7 +33,7 @@ export default function UsAddressFields() {
   const zipRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
 
-  const [line1, setLine1] = useState("");
+  const [line1, setLine1] = useState(defaultValues?.address1 ?? "");
   const [predictions, setPredictions] = useState<
     google.maps.places.AutocompletePrediction[]
   >([]);
@@ -188,6 +197,7 @@ export default function UsAddressFields() {
           <input
             name="address1"
             type="text"
+            defaultValue={defaultValues?.address1 ?? ""}
             className={inputClass}
             placeholder="Street address"
           />
@@ -197,27 +207,29 @@ export default function UsAddressFields() {
           <input
             name="address2"
             type="text"
+            defaultValue={defaultValues?.address2 ?? ""}
             className={inputClass}
             placeholder="Suite, unit, etc."
           />
         </div>
         <div className="flex flex-col">
           <label className="mb-1 text-xs text-[#808080]">City</label>
-          <input name="city" type="text" className={inputClass} />
+          <input name="city" type="text" defaultValue={defaultValues?.city ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
           <label className="mb-1 text-xs text-[#808080]">State</label>
-          <input name="state" type="text" className={inputClass} />
+          <input name="state" type="text" defaultValue={defaultValues?.state ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
           <label className="mb-1 text-xs text-[#808080]">ZIP code</label>
-          <input name="zipCode" type="text" className={inputClass} />
+          <input name="zipCode" type="text" defaultValue={defaultValues?.zipCode ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
           <label className="mb-1 text-xs text-[#808080]">Country</label>
           <input
             name="country"
             type="text"
+            defaultValue={defaultValues?.country ?? ""}
             className={inputClass}
             placeholder="United States"
           />
@@ -289,6 +301,7 @@ export default function UsAddressFields() {
           name="address2"
           type="text"
           autoComplete="address-line2"
+          defaultValue={defaultValues?.address2 ?? ""}
           className={inputClass}
           placeholder="Suite, unit, etc."
         />
@@ -300,6 +313,7 @@ export default function UsAddressFields() {
           name="city"
           type="text"
           autoComplete="address-level2"
+          defaultValue={defaultValues?.city ?? ""}
           className={inputClass}
         />
       </div>
@@ -310,6 +324,7 @@ export default function UsAddressFields() {
           name="state"
           type="text"
           autoComplete="address-level1"
+          defaultValue={defaultValues?.state ?? ""}
           className={inputClass}
         />
       </div>
@@ -320,6 +335,7 @@ export default function UsAddressFields() {
           name="zipCode"
           type="text"
           autoComplete="postal-code"
+          defaultValue={defaultValues?.zipCode ?? ""}
           className={inputClass}
         />
       </div>
@@ -330,6 +346,7 @@ export default function UsAddressFields() {
           name="country"
           type="text"
           autoComplete="country-name"
+          defaultValue={defaultValues?.country ?? ""}
           className={inputClass}
           placeholder="United States"
         />

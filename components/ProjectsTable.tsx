@@ -24,144 +24,92 @@ type SortKey =
   | 'status'
   | 'createdAt';
 
+const th =
+  'border border-gray-200 bg-gray-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-gray-700 whitespace-nowrap cursor-pointer select-none';
+const thPlain =
+  'border border-gray-200 bg-gray-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-gray-700 whitespace-nowrap';
+const td =
+  'border border-gray-200 px-3 py-2 text-sm text-gray-800 whitespace-nowrap';
+
+function dash(v: string | null | undefined) {
+  return v?.trim() ? v : '—';
+}
+
+function fmtDate(iso: string | null | undefined) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString();
+}
+
 export default function ProjectsTable({ projects }: { projects: Project[] }) {
   const [sortKey, setSortKey] = useState<SortKey>('createdAt');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
   function onSort(key: SortKey) {
     if (key === sortKey) {
-      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     } else {
       setSortKey(key);
       setSortDir('asc');
     }
   }
 
-  const sortedProjects = [...projects].sort((a, b) => {
-    const aVal = String(a[sortKey] ?? '');
-    const bVal = String(b[sortKey] ?? '');
-
-    if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
-    if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+  const sorted = [...projects].sort((a, b) => {
+    const av = String(a[sortKey] ?? '');
+    const bv = String(b[sortKey] ?? '');
+    if (av < bv) return sortDir === 'asc' ? -1 : 1;
+    if (av > bv) return sortDir === 'asc' ? 1 : -1;
     return 0;
   });
 
-  function SortIcon({ column }: { column: SortKey }) {
-    if (column !== sortKey) return <span className="ml-1 text-gray-300">⇅</span>;
-    return sortDir === 'asc'
-      ? <span className="ml-1">▲</span>
-      : <span className="ml-1">▼</span>;
+  function SortIcon({ col }: { col: SortKey }) {
+    if (col !== sortKey) return <span className="ml-1 text-gray-400">⇅</span>;
+    return <span className="ml-1">{sortDir === 'asc' ? '▲' : '▼'}</span>;
   }
 
+  const cols: { key: SortKey; label: string }[] = [
+    { key: 'number',       label: 'Project #' },
+    { key: 'name',         label: 'Project Name' },
+    { key: 'customerName', label: 'Customer' },
+    { key: 'startDate',    label: 'Start Date' },
+    { key: 'endDate',      label: 'End Date' },
+    { key: 'status',       label: 'Status' },
+    { key: 'createdAt',    label: 'Created' },
+  ];
+
   return (
-    <div className="bg-white border rounded-md shadow-sm overflow-x-auto">
-      <table className="w-full border-collapse text-sm">
-        <thead className="bg-gray-100">
+    <div className="overflow-x-auto rounded-md border border-gray-200 bg-white shadow-sm">
+      <table className="w-max min-w-full border-collapse text-left">
+        <thead>
           <tr>
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('number')}
-            >
-              Project #
-              <SortIcon column="number" />
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('name')}
-            >
-              Project Name
-              <SortIcon column="name" />
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('customerName')}
-            >
-              Customer
-              <SortIcon column="customerName" />
-            </th>
-
-            <th className="px-4 py-3 border text-left">
-              Description
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('startDate')}
-            >
-              Start Date
-              <SortIcon column="startDate" />
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('endDate')}
-            >
-              End Date
-              <SortIcon column="endDate" />
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('status')}
-            >
-              Status
-              <SortIcon column="status" />
-            </th>
-
-            <th
-              className="px-4 py-3 border text-left cursor-pointer"
-              onClick={() => onSort('createdAt')}
-            >
-              Created
-              <SortIcon column="createdAt" />
-            </th>
+            {cols.map(({ key, label }) => (
+              <th key={key} className={th} onClick={() => onSort(key)}>
+                {label}
+                <SortIcon col={key} />
+              </th>
+            ))}
+            <th className={thPlain}>Description</th>
           </tr>
         </thead>
-
         <tbody>
-          {sortedProjects.map((project) => (
-            <tr key={project._id} className="hover:bg-gray-50">
-              <td className="px-4 py-2 border">
-                <Link
-                  href={`/projects/${project._id}`}
-                  className="font-medium text-[#0099FF] hover:underline"
-                >
-                  {project.number}
+          {sorted.map((p) => (
+            <tr key={p._id} className="hover:bg-gray-50">
+              <td className={td}>
+                <Link href={`/projects/${p._id}`} className="text-[#0099FF] hover:underline">
+                  {p.number}
                 </Link>
               </td>
-              <td className="px-4 py-2 border font-medium">
-                <Link
-                  href={`/projects/${project._id}`}
-                  className="text-[#0099FF] hover:underline"
-                >
-                  {project.name}
+              <td className={td}>
+                <Link href={`/projects/${p._id}`} className="text-[#0099FF] hover:underline">
+                  {p.name}
                 </Link>
               </td>
-              <td className="px-4 py-2 border text-gray-800">
-                {project.customerName?.trim() ? project.customerName : '—'}
-              </td>
-              <td className="px-4 py-2 border truncate max-w-[300px]">
-                {project.description || '-'}
-              </td>
-              <td className="px-4 py-2 border">
-                {project.startDate
-                  ? new Date(project.startDate).toLocaleDateString()
-                  : '-'}
-              </td>
-              <td className="px-4 py-2 border">
-                {project.endDate
-                  ? new Date(project.endDate).toLocaleDateString()
-                  : '-'}
-              </td>
-              <td className="px-4 py-2 border">
-                <span className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">
-                  {project.status}
-                </span>
-              </td>
-              <td className="px-4 py-2 border text-gray-500">
-                {new Date(project.createdAt).toLocaleDateString()}
+              <td className={td}>{dash(p.customerName)}</td>
+              <td className={td}>{fmtDate(p.startDate)}</td>
+              <td className={td}>{fmtDate(p.endDate)}</td>
+              <td className={td}>{p.status}</td>
+              <td className={td}>{fmtDate(p.createdAt)}</td>
+              <td className={`${td} max-w-[18rem] truncate`} title={p.description ?? undefined}>
+                {dash(p.description)}
               </td>
             </tr>
           ))}

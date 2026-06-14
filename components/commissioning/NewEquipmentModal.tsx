@@ -1,11 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { createCommissioningEquipment } from "@/actions/commissioningEquipmentActions";
+import type { SerializedCommissioningEquipment } from "@/lib/commissioning-equipment";
+
+import ParentAssetPicker from "./ParentAssetPicker";
+import ContactPicker from "./ContactPicker";
+import type { ContactOption } from "./ContactPicker";
 
 type ProjectOption = { _id: string; name: string; number: string };
 type CustomerOption = { _id: string; name: string };
+type AssetTypeOption = { _id: string; typeCode: string; typeName: string };
 
 type Props = {
   isOpen: boolean;
@@ -17,6 +23,12 @@ type Props = {
   projects?: ProjectOption[];
   /** Customers from the Customers module (optional link on each equipment row). */
   customers?: CustomerOption[];
+  /** Asset types for the type selector. */
+  assetTypes?: AssetTypeOption[];
+  /** Contacts from Customer/Vendor catalogue — used to link a contact person. */
+  contacts?: ContactOption[];
+  /** All existing equipment — used to populate the parent asset picker. */
+  allEquipment?: SerializedCommissioningEquipment[];
 };
 
 const inputPlain =
@@ -112,10 +124,19 @@ export default function NewEquipmentModal({
   fixedProjectId,
   projects = [],
   customers = [],
+  assetTypes = [],
+  contacts = [],
+  allEquipment = [],
 }: Props) {
+  const [selectedProjectId, setSelectedProjectId] = useState(fixedProjectId ?? "");
+
   if (!isOpen) return null;
 
   const showProjectPicker = !fixedProjectId;
+
+  const parentAssetOptions = allEquipment.filter(
+    (e) => e.projectId === selectedProjectId
+  );
 
   async function onSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -160,6 +181,7 @@ export default function NewEquipmentModal({
                 required
                 className={inputPlain}
                 defaultValue=""
+                onChange={(e) => setSelectedProjectId(e.target.value)}
               >
                 <option value="" disabled>
                   Select project
@@ -212,6 +234,24 @@ export default function NewEquipmentModal({
                   className={inputPlain}
                 />
               </div>
+              <div>
+                <label className={labelOptional} htmlFor="assetTypeId">
+                  Asset type
+                </label>
+                <select
+                  id="assetTypeId"
+                  name="assetTypeId"
+                  defaultValue=""
+                  className={inputPlain}
+                >
+                  <option value="">None</option>
+                  {assetTypes.map((t) => (
+                    <option key={t._id} value={t._id}>
+                      {t.typeCode} — {t.typeName}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="sm:col-span-2">
                 <label className={labelRequired} htmlFor="serviceAndPart">
                   Service and part *
@@ -228,11 +268,10 @@ export default function NewEquipmentModal({
                 <label className={labelOptional} htmlFor="parentAsset">
                   Parent asset
                 </label>
-                <InputTrailing
-                  id="parentAsset"
-                  name="parentAsset"
-                  placeholder="Search parent asset"
-                  icon={<IconSearch />}
+                <ParentAssetPicker
+                  key={selectedProjectId}
+                  name="parentAssetId"
+                  options={parentAssetOptions}
                 />
               </div>
               <div>
@@ -323,16 +362,10 @@ export default function NewEquipmentModal({
                 ) : null}
               </div>
               <div className="sm:col-span-2">
-                <label className={labelRequired} htmlFor="contact">
-                  Contact *
+                <label className={labelOptional} htmlFor="contactPersonId">
+                  Contact person
                 </label>
-                <InputTrailing
-                  id="contact"
-                  name="contact"
-                  required
-                  placeholder="Search contact"
-                  icon={<IconUser />}
-                />
+                <ContactPicker name="contactPersonId" options={contacts} />
               </div>
             </div>
           </section>

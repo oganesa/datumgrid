@@ -271,6 +271,56 @@ export function ReportsIcon({ active, className }: IconProps) {
   );
 }
 
+export function AssetManagementIcon({ active, className }: IconProps) {
+  return (
+    <svg
+      className={`${base(active)} ${className ?? ""}`}
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="2" y="3" width="20" height="5" rx="1" />
+      <rect x="2" y="10" width="20" height="5" rx="1" />
+      <rect x="2" y="17" width="20" height="4" rx="1" />
+    </svg>
+  );
+}
+
+export function AssetTypeIcon({ active, className }: IconProps) {
+  return (
+    <svg
+      className={`${base(active)} ${className ?? ""}`}
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+      <path d="M7 7h.01" />
+    </svg>
+  );
+}
+
+export function MaterialEquipmentIcon({ active, className }: IconProps) {
+  return (
+    <svg
+      className={`${base(active)} ${className ?? ""}`}
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+      <path d="m3.3 7 8.7 5 8.7-5" />
+      <path d="M12 22V12" />
+    </svg>
+  );
+}
+
 export function SettingsIcon({ active, className }: IconProps) {
   return (
     <svg

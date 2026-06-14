@@ -36,11 +36,7 @@ export default async function CustomersPage() {
 
   return (
     <div className="p-6">
-      {customers.length === 0 ? (
-        <p className="text-gray-500">No customers yet. Use + New customer to add one.</p>
-      ) : (
-        <CustomersTable customers={customers} />
-      )}
+      <CustomersTable customers={customers} />
     </div>
   );
 }

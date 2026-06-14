@@ -45,3 +45,42 @@ export async function createVendor(formData: FormData): Promise<
     return { success: false as const, error: message };
   }
 }
+
+export async function updateVendor(
+  id: string,
+  formData: FormData
+): Promise<{ success: true } | { success: false; error: string }> {
+  try {
+    await connectDB();
+
+    const name = optionalString(formData, "name");
+    if (!name) {
+      return { success: false as const, error: "Vendor name is required." };
+    }
+
+    const doc = await Vendor.findById(id);
+    if (!doc) {
+      return { success: false as const, error: "Vendor not found." };
+    }
+
+    doc.name = name;
+    doc.address1 = optionalString(formData, "address1");
+    doc.address2 = optionalString(formData, "address2");
+    doc.city = optionalString(formData, "city");
+    doc.state = optionalString(formData, "state");
+    doc.zipCode = optionalString(formData, "zipCode");
+    doc.country = optionalString(formData, "country");
+    doc.phone = optionalString(formData, "phone");
+    doc.email = optionalString(formData, "email");
+    doc.web = optionalString(formData, "web");
+    await doc.save();
+
+    revalidatePath("/");
+    revalidatePath("/vendors");
+    return { success: true as const };
+  } catch (error: unknown) {
+    console.error("updateVendor:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return { success: false as const, error: message };
+  }
+}

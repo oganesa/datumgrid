@@ -1,6 +1,7 @@
 import CommissioningEquipmentClient from "@/components/commissioning/CommissioningEquipmentClient";
 import ProjectDashboard from "@/components/ProjectDashboard";
 import type { SerializedCommissioningEquipment } from "@/lib/commissioning-equipment";
+import type { SerializedContact } from "@/lib/contacts";
 import type { SerializedProject } from "@/lib/projects";
 import type { ProjectWorkspaceTab } from "@/lib/project-workspace";
 import { PROJECT_TAB_ORDER } from "@/lib/project-workspace";
@@ -16,6 +17,7 @@ type Props = {
   project: SerializedProject;
   commissioningEquipment?: SerializedCommissioningEquipment[];
   commissioningCustomers?: CustomerOption[];
+  commissioningContacts?: SerializedContact[];
 };
 
 export default function ProjectTabContent({
@@ -23,6 +25,7 @@ export default function ProjectTabContent({
   project,
   commissioningEquipment,
   commissioningCustomers,
+  commissioningContacts,
 }: Props) {
   if (tab === "dashboard") {
     return <ProjectDashboard />;
@@ -35,6 +38,7 @@ export default function ProjectTabContent({
         showProjectColumns={false}
         contextProjectId={project._id}
         customersForSelect={commissioningCustomers ?? []}
+        contactsForSelect={commissioningContacts ?? []}
       />
     );
   }

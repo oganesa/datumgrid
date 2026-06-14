@@ -1,5 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
 
+import "./AssetType";
+import "./Contact";
 import "./Customer";
 import "./Project";
 
@@ -17,17 +19,31 @@ const CommissioningEquipmentSchema = new Schema(
       default: null,
       index: true,
     },
+    assetTypeId: {
+      type: Schema.Types.ObjectId,
+      ref: "AssetType",
+      default: null,
+    },
     assetName: { type: String, required: true, trim: true },
     description: { type: String, default: "" },
     assetNumber: { type: String, default: "" },
     serviceAndPart: { type: String, required: true, trim: true },
-    parentAsset: { type: String, default: "" },
+    parentAssetId: {
+      type: Schema.Types.ObjectId,
+      ref: "CommissioningEquipment",
+      default: null,
+    },
+    contactPersonId: {
+      type: Schema.Types.ObjectId,
+      ref: "Contact",
+      default: null,
+    },
     giai: { type: String, default: "" },
     orderedDate: { type: Date, default: null },
     installationDate: { type: Date, default: null },
     purchasedDate: { type: Date, default: null },
     warrantyExpiration: { type: Date, default: null },
-    contact: { type: String, required: true, trim: true },
+    contact: { type: String, default: "" },
     address: { type: String, default: "" },
   },
   { timestamps: true }
