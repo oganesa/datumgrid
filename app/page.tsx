@@ -9,24 +9,47 @@ export default async function Page() {
 
   if (!session) {
     return (
-      <div className="p-6 space-y-4">
-        <h1 className="text-xl font-semibold">Sign in</h1>
-        <p className="text-gray-600">
-          Use your Auth0 account to access DatumGrid.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="/auth/login?screen_hint=signup"
-            className="inline-flex items-center rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
-          >
-            Sign up
-          </a>
-          <a
-            href="/auth/login"
-            className="inline-flex items-center rounded-md border border-[#E5EAF2] bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
-          >
-            Log in
-          </a>
+      <div className="flex min-h-screen">
+        {/* Left — brand panel */}
+        <div className="hidden lg:flex w-1/2 flex-col items-center justify-center bg-[#1C2E4A] px-16">
+          <img
+            src="/datumgrid-logo.svg"
+            alt="DatumGrid"
+            className="h-12 w-auto brightness-0 invert"
+          />
+          <p className="mt-6 text-center text-sm leading-relaxed text-[#A8BBCF] max-w-xs">
+            Construction project and commissioning workspace.
+          </p>
+        </div>
+
+        {/* Right — login panel */}
+        <div className="flex flex-1 flex-col items-center justify-center bg-white px-8">
+          {/* Logo shown only on small screens where left panel is hidden */}
+          <img
+            src="/datumgrid-logo.svg"
+            alt="DatumGrid"
+            className="mb-10 h-9 w-auto lg:hidden"
+          />
+
+          <div className="w-full max-w-sm">
+            <h1 className="mb-2 text-2xl font-semibold text-[#1F2937]">Welcome back</h1>
+            <p className="mb-8 text-sm text-[#6B7280]">Sign in to your DatumGrid account.</p>
+
+            <div className="flex flex-col gap-3">
+              <a
+                href="/auth/login"
+                className="flex items-center justify-center rounded-lg bg-[#4A90E2] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3a7fd4]"
+              >
+                Log in
+              </a>
+              <a
+                href="/auth/login?screen_hint=signup"
+                className="flex items-center justify-center rounded-lg border border-[#E5EAF2] bg-white px-5 py-3 text-sm font-semibold text-[#1F2937] transition hover:bg-[#F7F9FC]"
+              >
+                Create an account
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     );

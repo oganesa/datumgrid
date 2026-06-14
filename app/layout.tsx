@@ -35,17 +35,24 @@ export default async function RootLayout({
   const userLabel =
     session?.user?.name ?? session?.user?.email ?? undefined;
 
+  const isAuthenticated = !!session;
+
   return (
     <html lang="en">
-      {/* Apply the geist fonts to the body class list */}
-      <body className={`${geistSans.variable} ${geistMono.variable} flex bg-white antialiased`}>
-        <Sidebar userLabel={userLabel} />
-        <div className="flex-1 ml-64 flex min-h-screen flex-col">
-          <HeaderTitleProvider>
-            <Header />
-            <main className="flex-1 bg-[#F7F9FC] p-8">{children}</main>
-          </HeaderTitleProvider>
-        </div>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {isAuthenticated ? (
+          <div className="flex bg-white">
+            <Sidebar userLabel={userLabel} />
+            <div className="flex-1 ml-64 flex min-h-screen flex-col">
+              <HeaderTitleProvider>
+                <Header />
+                <main className="flex-1 bg-[#F7F9FC] p-8">{children}</main>
+              </HeaderTitleProvider>
+            </div>
+          </div>
+        ) : (
+          children
+        )}
       </body>
     </html>
   );
