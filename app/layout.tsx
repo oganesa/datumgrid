@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   title: "DatumGrid",
   description: "Construction project and commissioning workspace.",
   icons: {
-    icon: "/datumgrid-logo.png",
-    apple: "/datumgrid-logo.png",
+    icon: "/favicon.svg",
+    apple: "/datumgrid-logo.svg",
   },
 };
 

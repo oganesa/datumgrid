@@ -59,7 +59,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
           className="block rounded-sm bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#243757] focus-visible:ring-offset-2"
         >
           <img
-            src="/datumgrid-logo.png"
+            src="/datumgrid-logo.svg"
             alt="DatumGrid"
             width={220}
             height={56}
