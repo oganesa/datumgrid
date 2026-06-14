@@ -57,7 +57,7 @@ export async function GET(_req: Request, context: RouteContext) {
 
   const safeName = encodeURIComponent(d.originalName.replace(/["\r\n]/g, "_"));
 
-  return new NextResponse(buf, {
+  return new NextResponse(buf as unknown as BodyInit, {
     status: 200,
     headers: {
       "Content-Type": d.mimeType,

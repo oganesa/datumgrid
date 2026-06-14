@@ -92,10 +92,7 @@ export async function updateCommissioningView(
     const doc = await CommissioningView.findOne({ _id: id, userId });
     if (!doc) return { success: false, error: "View not found." };
 
-    doc.name = name;
-    doc.description = description;
-    doc.filters = filters;
-    doc.columns = columns;
+    doc.set({ name, description, filters, columns });
     await doc.save();
 
     revalidatePath("/commissioning");
