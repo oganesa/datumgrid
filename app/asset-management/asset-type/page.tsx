@@ -17,13 +17,13 @@ export default async function AssetTypePage() {
         <div className="flex flex-wrap gap-3">
           <a
             href="/auth/login?screen_hint=signup"
-            className="inline-flex items-center rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]"
+            className="inline-flex items-center rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
           >
             Sign up
           </a>
           <a
             href="/auth/login"
-            className="inline-flex items-center rounded-md border border-[#D5D5D5] bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+            className="inline-flex items-center rounded-md border border-[#E5EAF2] bg-white px-4 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
           >
             Log in
           </a>

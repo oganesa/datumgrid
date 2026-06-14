@@ -60,22 +60,22 @@ export default function NewCostItemModal({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto overflow-hidden rounded-lg bg-white shadow-xl">
-        <div className="flex items-center justify-between bg-[#0099FF] p-4 text-white">
+        <div className="flex items-center justify-between bg-[#4A90E2] p-4 text-white">
           <h2 className="font-bold uppercase tracking-tight">New cost item</h2>
           <button type="button" onClick={onClose} className="hover:text-gray-200">
             ✕
           </button>
         </div>
         <form onSubmit={onSubmitForm} className="space-y-4 p-6">
-          <p className="rounded-md bg-[#D5EEFF] p-3 text-xs text-gray-700">
+          <p className="rounded-md bg-[#EBF3FF] p-3 text-xs text-gray-700">
             A unique 6-digit catalog ID is assigned automatically when you save.
           </p>
           <div className="flex flex-col">
-            <label className="mb-1 text-xs text-[#808080]">Cost group *</label>
+            <label className="mb-1 text-xs text-[#6B7280]">Cost group *</label>
             <select
               name="costGroupId"
               required
-              className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+              className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
             >
               <option value="">Select group</option>
               {groups.map((g) => (
@@ -91,30 +91,30 @@ export default function NewCostItemModal({
             ) : null}
           </div>
           <div className="flex flex-col">
-            <label className="mb-1 text-xs text-[#808080]">Name *</label>
+            <label className="mb-1 text-xs text-[#6B7280]">Name *</label>
             <input
               name="name"
               required
               type="text"
-              className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+              className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
             />
           </div>
           <div className="flex flex-col">
-            <label className="mb-1 text-xs text-[#808080]">Description</label>
+            <label className="mb-1 text-xs text-[#6B7280]">Description</label>
             <textarea
               name="description"
               rows={2}
-              className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+              className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <label className="mb-1 text-xs text-[#808080]">UOM *</label>
+              <label className="mb-1 text-xs text-[#6B7280]">UOM *</label>
               <select
                 name="uom"
                 required
                 defaultValue="Each"
-                className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+                className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
               >
                 {UOM_OPTIONS.map((u) => (
                   <option key={u} value={u}>
@@ -124,11 +124,11 @@ export default function NewCostItemModal({
               </select>
             </div>
             <div className="flex flex-col">
-              <label className="mb-1 text-xs text-[#808080]">SKU</label>
+              <label className="mb-1 text-xs text-[#6B7280]">SKU</label>
               <input
                 name="sku"
                 type="text"
-                className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+                className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
               />
             </div>
           </div>
@@ -142,17 +142,17 @@ export default function NewCostItemModal({
             <input name="taxable" type="checkbox" className="h-4 w-4 rounded border-gray-300" />
             Taxable
           </label>
-          <div className="flex justify-end gap-3 border-t border-[#D5D5D5] pt-4">
+          <div className="flex justify-end gap-3 border-t border-[#E5EAF2] pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="rounded px-4 py-2 text-[#808080] hover:bg-gray-100"
+              className="rounded px-4 py-2 text-[#6B7280] hover:bg-gray-100"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded bg-[#0099FF] px-6 py-2 font-bold text-white shadow-md hover:bg-[#2AAAFF]"
+              className="rounded bg-[#4A90E2] px-6 py-2 font-bold text-white shadow-md hover:bg-[#7FB3FF]"
             >
               Save item
             </button>

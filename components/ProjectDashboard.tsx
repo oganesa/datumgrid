@@ -48,7 +48,7 @@ function SiteAddressLineBar({ addressText }: { addressText: string | null }) {
   const display = addressText ?? "No address on file";
 
   return (
-    <div className="mt-2 flex items-stretch gap-2 rounded border border-[#D5D5D5] bg-[#F0F0F0] px-3 py-2.5">
+    <div className="mt-2 flex items-stretch gap-2 rounded border border-[#E5EAF2] bg-[#F0F0F0] px-3 py-2.5">
       <p
         className={`min-w-0 flex-1 self-center break-words text-sm leading-snug ${
           addressText ? "text-gray-900" : "text-gray-400"
@@ -139,7 +139,7 @@ export default function ProjectDashboard() {
   );
 
   const fieldClass =
-    "border-0 border-b border-transparent bg-transparent py-0.5 text-xs text-gray-900 focus:border-[#0099FF] focus:outline-none";
+    "border-0 border-b border-transparent bg-transparent py-0.5 text-xs text-gray-900 focus:border-[#4A90E2] focus:outline-none";
   const inputClass = `${fieldClass} w-full min-w-0`;
   const selectClass = `${fieldClass} w-full max-w-full`;
 
@@ -149,26 +149,26 @@ export default function ProjectDashboard() {
     edit: React.ReactNode
   ) => (
     <div className="grid grid-cols-[7.5rem_1fr] gap-x-2 gap-y-0 border-b border-gray-100 py-1.5 text-xs last:border-0">
-      <dt className="text-[#808080]">{label}</dt>
+      <dt className="text-[#6B7280]">{label}</dt>
       <dd className="min-w-0 font-medium text-gray-900">{isEditing ? edit : view}</dd>
     </div>
   );
 
   const activity = (
-    <section className="flex h-full min-h-[28rem] flex-col rounded-md border border-[#D5D5D5] bg-white">
+    <section className="flex h-full min-h-[28rem] flex-col rounded-md border border-[#E5EAF2] bg-white">
       <div className="flex items-center justify-between border-b border-gray-100 px-3 py-2">
-        <h2 className="text-[10px] font-semibold uppercase tracking-wider text-[#808080]">
+        <h2 className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
           Activity
         </h2>
         <button
           type="button"
-          className="text-[10px] font-medium text-[#0099FF] hover:underline"
+          className="text-[10px] font-medium text-[#4A90E2] hover:underline"
         >
           Filter
         </button>
       </div>
       <div className="border-b border-gray-50 px-3 py-2">
-        <p className="text-[10px] text-[#808080]">
+        <p className="text-[10px] text-[#6B7280]">
           Posts between your team, customer, and vendors will appear here.
         </p>
         <div className="mt-2 flex gap-2">
@@ -176,7 +176,7 @@ export default function ProjectDashboard() {
             type="text"
             readOnly
             placeholder="Post a message…"
-            className="min-w-0 flex-1 rounded border border-[#D5D5D5] px-2 py-1 text-xs text-gray-400"
+            className="min-w-0 flex-1 rounded border border-[#E5EAF2] px-2 py-1 text-xs text-gray-400"
           />
           <button
             type="button"
@@ -193,8 +193,8 @@ export default function ProjectDashboard() {
   );
 
   const projectFields = (
-    <div className="rounded-md border border-[#D5D5D5] bg-white p-3">
-      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#808080]">
+    <div className="rounded-md border border-[#E5EAF2] bg-white p-3">
+      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
         Project
       </h2>
       <dl>
@@ -266,7 +266,7 @@ export default function ProjectDashboard() {
           "Description",
           dash(p.description),
           <textarea
-            className="min-h-[3rem] w-full resize-y rounded border border-[#D5D5D5] px-1.5 py-1 text-xs"
+            className="min-h-[3rem] w-full resize-y rounded border border-[#E5EAF2] px-1.5 py-1 text-xs"
             value={p.description ?? ""}
             onChange={(e) => setDraft({ description: e.target.value || null })}
             name="description"
@@ -384,8 +384,8 @@ export default function ProjectDashboard() {
   );
 
   const budgetPlaceholder = (
-    <div className="rounded-md border border-[#D5D5D5] bg-white p-3">
-      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#808080]">
+    <div className="rounded-md border border-[#E5EAF2] bg-white p-3">
+      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
         Budget snapshot
       </h2>
       <p className="mb-2 text-[10px] leading-relaxed text-gray-500">
@@ -394,7 +394,7 @@ export default function ProjectDashboard() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[280px] border-collapse text-left text-[10px]">
           <thead>
-            <tr className="border-b border-gray-200 text-[#808080]">
+            <tr className="border-b border-gray-200 text-[#6B7280]">
               <th className="py-1 pr-2 font-medium">Line</th>
               <th className="py-1 pr-2 font-medium">Budget</th>
               <th className="py-1 pr-2 font-medium">Actual</th>
@@ -423,17 +423,17 @@ export default function ProjectDashboard() {
     <img
       src={coverSrc}
       alt=""
-      className="max-h-48 w-full rounded-md border border-[#D5D5D5] bg-gray-50 object-contain"
+      className="max-h-48 w-full rounded-md border border-[#E5EAF2] bg-gray-50 object-contain"
     />
   ) : (
-    <div className="flex h-40 items-center justify-center rounded-md border border-dashed border-[#D5D5D5] bg-gray-50 text-center text-[10px] text-gray-400">
+    <div className="flex h-40 items-center justify-center rounded-md border border-dashed border-[#E5EAF2] bg-gray-50 text-center text-[10px] text-gray-400">
       No project image
     </div>
   );
 
   const coverBlock = (
-    <div className="rounded-md border border-[#D5D5D5] bg-white p-3">
-      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#808080]">
+    <div className="rounded-md border border-[#E5EAF2] bg-white p-3">
+      <h2 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
         Project image
       </h2>
       {coverPreview}
@@ -444,7 +444,7 @@ export default function ProjectDashboard() {
             <input
               type="file"
               accept="image/jpeg,image/png,image/gif,image/webp"
-              className="mt-1 block w-full text-xs file:mr-2 file:rounded file:border-0 file:bg-[#0099FF] file:px-2 file:py-1 file:text-[10px] file:font-medium file:text-white"
+              className="mt-1 block w-full text-xs file:mr-2 file:rounded file:border-0 file:bg-[#4A90E2] file:px-2 file:py-1 file:text-[10px] file:font-medium file:text-white"
               onChange={(e) => {
                 const f = e.target.files?.[0];
                 setCoverFile(f ?? null);
@@ -469,7 +469,7 @@ export default function ProjectDashboard() {
   const singleLineAddress = formatSingleLineSiteAddress(p);
 
   const locationSection = (
-    <div className="rounded-md border border-[#D5D5D5] bg-white p-3">
+    <div className="rounded-md border border-[#E5EAF2] bg-white p-3">
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-xs font-bold uppercase tracking-wider text-orange-600">
           Location
@@ -479,7 +479,7 @@ export default function ProjectDashboard() {
       <ProjectMapEmbed project={p} />
       {isEditing ? (
         <div className="mt-3 border-t border-gray-100 pt-3">
-          <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#808080]">
+          <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
             Site address
           </h3>
           {siteAddressFieldsForm}

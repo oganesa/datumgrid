@@ -27,7 +27,7 @@ function toDateInput(iso: string | null | undefined): string {
 }
 
 const inputPlain =
-  "w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]";
+  "w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]";
 const labelRequired =
   "mb-1 block border-l-4 border-red-500 pl-2 text-xs font-medium text-gray-700";
 const labelOptional = "mb-1 block pl-2 text-xs font-medium text-gray-700";
@@ -186,7 +186,7 @@ function EditForm({
               name="description"
               rows={3}
               defaultValue={equipment.description ?? ""}
-              className="w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]"
+              className="w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]"
             />
           </div>
           <div>
@@ -365,18 +365,18 @@ function EditForm({
         </p>
       )}
 
-      <div className="flex justify-end gap-3 border-t border-[#D5D5D5] pt-4">
+      <div className="flex justify-end gap-3 border-t border-[#E5EAF2] pt-4">
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-md border border-[#D5D5D5] bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="rounded-md border border-[#E5EAF2] bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {saving ? "Saving…" : "Save changes"}
         </button>
@@ -469,12 +469,12 @@ export default function EquipmentRecordDrawer({
         onClick={onClose}
       />
       <div
-        className="relative flex h-full w-full max-w-xl flex-col border-l border-[#D5D5D5] bg-white shadow-2xl"
+        className="relative flex h-full w-full max-w-xl flex-col border-l border-[#E5EAF2] bg-white shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="equipment-record-title"
       >
-        <div className="flex shrink-0 items-start justify-between gap-3 border-b border-[#D5D5D5] px-5 py-4">
+        <div className="flex shrink-0 items-start justify-between gap-3 border-b border-[#E5EAF2] px-5 py-4">
           <div className="min-w-0">
             <h2
               id="equipment-record-title"
@@ -496,7 +496,7 @@ export default function EquipmentRecordDrawer({
               <button
                 type="button"
                 onClick={handleEditClick}
-                className="rounded border border-[#D5D5D5] px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                className="rounded border border-[#E5EAF2] px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               >
                 Edit
               </button>
@@ -512,7 +512,7 @@ export default function EquipmentRecordDrawer({
           </div>
         </div>
 
-        <div className="shrink-0 border-b border-[#D5D5D5] px-2">
+        <div className="shrink-0 border-b border-[#E5EAF2] px-2">
           <nav
             className="flex flex-wrap gap-x-1 gap-y-0"
             aria-label="Equipment record"

@@ -94,12 +94,12 @@ export default function ProjectsTable({ projects }: { projects: Project[] }) {
           {sorted.map((p) => (
             <tr key={p._id} className="hover:bg-gray-50">
               <td className={td}>
-                <Link href={`/projects/${p._id}`} className="text-[#0099FF] hover:underline">
+                <Link href={`/projects/${p._id}`} className="text-[#4A90E2] hover:underline">
                   {p.number}
                 </Link>
               </td>
               <td className={td}>
-                <Link href={`/projects/${p._id}`} className="text-[#0099FF] hover:underline">
+                <Link href={`/projects/${p._id}`} className="text-[#4A90E2] hover:underline">
                   {p.name}
                 </Link>
               </td>

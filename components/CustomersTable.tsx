@@ -79,7 +79,7 @@ export default function CustomersTable({
         <button
           type="button"
           onClick={openCreate}
-          className="rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]"
+          className="rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
         >
           + New customer
         </button>
@@ -136,7 +136,7 @@ export default function CustomersTable({
                       {c.email ? (
                         <a
                           href={`mailto:${c.email}`}
-                          className="text-[#0099FF] hover:underline"
+                          className="text-[#4A90E2] hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
                           {c.email}
@@ -151,7 +151,7 @@ export default function CustomersTable({
                           href={c.web.startsWith("http") ? c.web : `https://${c.web}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[#0099FF] hover:underline"
+                          className="text-[#4A90E2] hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
                           {c.web}
@@ -165,7 +165,7 @@ export default function CustomersTable({
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); openEdit(c); }}
-                        className="text-xs text-[#0099FF] hover:underline"
+                        className="text-xs text-[#4A90E2] hover:underline"
                       >
                         Edit
                       </button>

@@ -146,7 +146,7 @@ export default function EquipmentGuidancePanel({ equipmentId, active }: Props) {
         return (
           <section
             key={category}
-            className="rounded-lg border border-[#D5D5D5] bg-white p-4 shadow-sm"
+            className="rounded-lg border border-[#E5EAF2] bg-white p-4 shadow-sm"
           >
             <h4 className="text-sm font-semibold text-gray-900">
               {CATEGORY_LABELS[category]}
@@ -155,7 +155,7 @@ export default function EquipmentGuidancePanel({ equipmentId, active }: Props) {
               PDF, JPEG, PNG, WebP, or GIF — multiple files allowed.
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
-              <label className="inline-flex cursor-pointer items-center rounded-md border border-[#D5D5D5] bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-800 hover:bg-gray-100">
+              <label className="inline-flex cursor-pointer items-center rounded-md border border-[#E5EAF2] bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-800 hover:bg-gray-100">
                 <input
                   type="file"
                   className="sr-only"
@@ -180,7 +180,7 @@ export default function EquipmentGuidancePanel({ equipmentId, active }: Props) {
                   >
                     <a
                       href={`/api/commissioning/guidance/file/${f._id}`}
-                      className="min-w-0 flex-1 truncate font-medium text-[#0099FF] hover:underline"
+                      className="min-w-0 flex-1 truncate font-medium text-[#4A90E2] hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

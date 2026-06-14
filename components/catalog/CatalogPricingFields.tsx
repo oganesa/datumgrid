@@ -63,7 +63,7 @@ export default function CatalogPricingFields({
     <>
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">Unit cost (USD)</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Unit cost (USD)</label>
           <input
             type="number"
             step="0.01"
@@ -78,11 +78,11 @@ export default function CatalogPricingFields({
               });
               pushSnapshot(next);
             }}
-            className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+            className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
           />
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">Unit price (USD)</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Unit price (USD)</label>
           <input
             type="number"
             step="0.01"
@@ -97,13 +97,13 @@ export default function CatalogPricingFields({
               });
               pushSnapshot(next);
             }}
-            className="rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]"
+            className="rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]"
           />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3 rounded-md bg-gray-50 p-3 text-sm">
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">Markup %</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Markup %</label>
           <input
             type="number"
             step="0.01"
@@ -117,12 +117,12 @@ export default function CatalogPricingFields({
               });
               pushSnapshot(next);
             }}
-            className="rounded border border-[#D5D5D5] bg-white p-2 text-sm outline-none focus:border-[#0099FF]"
+            className="rounded border border-[#E5EAF2] bg-white p-2 text-sm outline-none focus:border-[#4A90E2]"
           />
           <p className="mt-1 text-[10px] text-gray-500">(Price − Cost) ÷ Cost × 100</p>
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">Margin %</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Margin %</label>
           <input
             type="number"
             step="0.01"
@@ -136,7 +136,7 @@ export default function CatalogPricingFields({
               });
               pushSnapshot(next);
             }}
-            className="rounded border border-[#D5D5D5] bg-white p-2 text-sm outline-none focus:border-[#0099FF]"
+            className="rounded border border-[#E5EAF2] bg-white p-2 text-sm outline-none focus:border-[#4A90E2]"
           />
           <p className="mt-1 text-[10px] text-gray-500">(Price − Cost) ÷ Price × 100</p>
         </div>

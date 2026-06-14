@@ -10,8 +10,8 @@ import UsAddressFields from "@/components/UsAddressFields";
 
 const PREFIXES = ["", "Mr.", "Mrs.", "Ms.", "Dr.", "Prof."];
 
-const inputCls = "rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]";
-const labelCls = "mb-1 text-xs text-[#808080]";
+const inputCls = "rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]";
+const labelCls = "mb-1 text-xs text-[#6B7280]";
 
 type Props = {
   isOpen: boolean;
@@ -103,7 +103,7 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-black/50 p-4">
       <div className="my-8 max-h-[min(92vh,1000px)] w-full max-w-2xl overflow-y-auto rounded-lg bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-[#D5D5D5] px-5 py-4">
+        <div className="flex items-center justify-between border-b border-[#E5EAF2] px-5 py-4">
           <h2 className="text-base font-semibold text-gray-900">
             {isEdit ? "Edit customer" : "New customer"}
           </h2>
@@ -117,13 +117,13 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
               className={inputCls} placeholder="Company or contact name" />
           </div>
 
-          <div className="border-t border-[#D5D5D5] pt-4">
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#808080]">Address</h3>
+          <div className="border-t border-[#E5EAF2] pt-4">
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#6B7280]">Address</h3>
             <UsAddressFields defaultValues={editItem ?? undefined} />
           </div>
 
-          <div className="border-t border-[#D5D5D5] pt-4">
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#808080]">Contact info</h3>
+          <div className="border-t border-[#E5EAF2] pt-4">
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#6B7280]">Contact info</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col">
                 <label className={labelCls}>Phone number</label>
@@ -140,13 +140,13 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 border-t border-[#D5D5D5] pt-4">
+          <div className="flex justify-end gap-3 border-t border-[#E5EAF2] pt-4">
             <button type="button" onClick={onClose}
-              className="rounded-md border border-[#D5D5D5] px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              className="rounded-md border border-[#E5EAF2] px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
               Cancel
             </button>
             <button type="submit"
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]">
+              className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]">
               {isEdit ? "Save changes" : "Save customer"}
             </button>
           </div>
@@ -154,12 +154,12 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
 
         {/* Contacts section — only when editing */}
         {isEdit && (
-          <div className="border-t border-[#D5D5D5] px-6 pb-6 pt-4">
+          <div className="border-t border-[#E5EAF2] px-6 pb-6 pt-4">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-[#808080]">Contacts</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-[#6B7280]">Contacts</h3>
               {!contactForm && (
                 <button type="button" onClick={startAddContact}
-                  className="rounded bg-[#0099FF] px-3 py-1 text-xs font-semibold text-white hover:bg-[#2AAAFF]">
+                  className="rounded bg-[#4A90E2] px-3 py-1 text-xs font-semibold text-white hover:bg-[#7FB3FF]">
                   + Add contact
                 </button>
               )}
@@ -191,7 +191,7 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
                         <td className="px-3 py-2">
                           <div className="flex gap-2">
                             <button type="button" onClick={() => startEditContact(c)}
-                              className="text-xs text-[#0099FF] hover:underline">Edit</button>
+                              className="text-xs text-[#4A90E2] hover:underline">Edit</button>
                             <button type="button" onClick={() => handleDeleteContact(c._id)}
                               className="text-xs text-red-500 hover:underline">Delete</button>
                           </div>
@@ -204,7 +204,7 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
             )}
 
             {contactForm && (
-              <div className="rounded border border-[#D5D5D5] bg-gray-50 p-4">
+              <div className="rounded border border-[#E5EAF2] bg-gray-50 p-4">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
                   {editingContactId ? "Edit contact" : "New contact"}
                 </p>
@@ -254,11 +254,11 @@ export default function NewCustomerModal({ isOpen, onClose, onSuccess, editItem 
                 )}
                 <div className="mt-3 flex gap-2">
                   <button type="button" onClick={saveContact} disabled={contactSaving}
-                    className="rounded bg-[#0099FF] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#2AAAFF] disabled:opacity-60">
+                    className="rounded bg-[#4A90E2] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#7FB3FF] disabled:opacity-60">
                     {contactSaving ? "Saving…" : "Save contact"}
                   </button>
                   <button type="button" onClick={cancelContactForm}
-                    className="rounded border border-[#D5D5D5] px-4 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100">
+                    className="rounded border border-[#E5EAF2] px-4 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100">
                     Cancel
                   </button>
                 </div>

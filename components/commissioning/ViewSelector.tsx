@@ -19,7 +19,7 @@ function IconChevron() {
 function IconAnchor({ filled }: { filled: boolean }) {
   return (
     <svg
-      className={`h-3.5 w-3.5 ${filled ? "text-[#0099FF]" : "text-gray-400"}`}
+      className={`h-3.5 w-3.5 ${filled ? "text-[#4A90E2]" : "text-gray-400"}`}
       viewBox="0 0 24 24"
       fill={filled ? "currentColor" : "none"}
       stroke="currentColor"
@@ -124,23 +124,23 @@ export default function ViewSelector({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 rounded-md border border-[#D5D5D5] bg-white px-3 py-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50"
+        className="flex items-center gap-1.5 rounded-md border border-[#E5EAF2] bg-white px-3 py-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50"
       >
         {activeViewName}
         <IconChevron />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-30 mt-1 w-64 rounded-lg border border-[#D5D5D5] bg-white shadow-xl">
+        <div className="absolute left-0 top-full z-30 mt-1 w-64 rounded-lg border border-[#E5EAF2] bg-white shadow-xl">
           {/* Search */}
-          <div className="border-b border-[#D5D5D5] px-2 py-1.5">
+          <div className="border-b border-[#E5EAF2] px-2 py-1.5">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               autoFocus
-              className="w-full rounded bg-gray-50 px-2 py-1 text-xs outline-none focus:bg-white focus:ring-1 focus:ring-[#0099FF]"
+              className="w-full rounded bg-gray-50 px-2 py-1 text-xs outline-none focus:bg-white focus:ring-1 focus:ring-[#4A90E2]"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function ViewSelector({
             {filteredViews.length > 0 && (
               <>
                 {showAllAssets && (
-                  <div className="mx-3 my-1 border-t border-[#D5D5D5]" />
+                  <div className="mx-3 my-1 border-t border-[#E5EAF2]" />
                 )}
                 {filteredViews.map((v) => (
                   <ViewRow
@@ -193,14 +193,14 @@ export default function ViewSelector({
             )}
           </div>
 
-          <div className="border-t border-[#D5D5D5] px-3 py-2">
+          <div className="border-t border-[#E5EAF2] px-3 py-2">
             <button
               type="button"
               onClick={() => {
                 setOpen(false);
                 onCreateView();
               }}
-              className="text-xs font-medium text-[#0099FF] hover:text-[#2AAAFF]"
+              className="text-xs font-medium text-[#4A90E2] hover:text-[#7FB3FF]"
             >
               + Create Custom View
             </button>
@@ -235,7 +235,7 @@ function ViewRow({
       type="button"
       onClick={onSelect}
       className={`group flex w-full items-center justify-between px-3 py-1.5 text-left text-sm hover:bg-gray-50 ${
-        isActive ? "font-semibold text-[#0099FF]" : "text-gray-700"
+        isActive ? "font-semibold text-[#4A90E2]" : "text-gray-700"
       }`}
     >
       <span className="truncate">{name}</span>

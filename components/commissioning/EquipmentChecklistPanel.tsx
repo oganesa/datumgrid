@@ -85,7 +85,7 @@ export default function EquipmentChecklistPanel({ equipmentId, active }: Props) 
               id={`chk-${equipmentId}-${item.id}`}
               checked={Boolean(checked[item.id])}
               onChange={() => toggle(item.id)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-[#0099FF] focus:ring-[#0099FF]"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-[#4A90E2] focus:ring-[#4A90E2]"
             />
             <label
               htmlFor={`chk-${equipmentId}-${item.id}`}

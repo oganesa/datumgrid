@@ -41,7 +41,7 @@ export default function CatalogView({ groups }: Props) {
   return (
     <div className="space-y-4">
       {groups.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-[#D5D5D5] bg-white p-8 text-center text-gray-500">
+        <div className="rounded-lg border border-dashed border-[#E5EAF2] bg-white p-8 text-center text-gray-500">
           <p className="font-medium text-gray-700">No cost groups yet</p>
           <p className="mt-2 text-sm">
             Use <strong>New cost group</strong> and <strong>New cost item</strong> in the header to
@@ -56,10 +56,10 @@ export default function CatalogView({ groups }: Props) {
         </p>
       ) : null}
 
-      <div className="overflow-x-auto rounded-lg border border-[#D5D5D5] bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-lg border border-[#E5EAF2] bg-white shadow-sm">
         <table className="w-full min-w-[1100px] border-collapse text-left text-sm">
           <thead>
-            <tr className="border-b border-[#D5D5D5] bg-[#F8F8F8] text-xs font-semibold uppercase tracking-wide text-[#808080]">
+            <tr className="border-b border-[#E5EAF2] bg-[#F8F8F8] text-xs font-semibold uppercase tracking-wide text-[#6B7280]">
               <th className="px-3 py-3">ID</th>
               <th className="px-3 py-3">Name</th>
               <th className="px-3 py-3">Description</th>
@@ -78,12 +78,12 @@ export default function CatalogView({ groups }: Props) {
           <tbody>
             {groups.map((group) => (
               <React.Fragment key={group._id}>
-                <tr className="bg-[#D5EEFF]/60">
+                <tr className="bg-[#EBF3FF]/60">
                   <td colSpan={13} className="px-3 py-2">
                     <button
                       type="button"
                       onClick={() => toggleGroup(group._id)}
-                      className="flex w-full items-center gap-2 text-left font-semibold text-[#0099FF]"
+                      className="flex w-full items-center gap-2 text-left font-semibold text-[#4A90E2]"
                     >
                       <span className="inline-block w-4 text-center">
                         {expanded[group._id] ? "▼" : "▶"}

@@ -75,7 +75,7 @@ export default function VendorsTable({ vendors: initial }: { vendors: Serialized
         <button
           type="button"
           onClick={openCreate}
-          className="rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]"
+          className="rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
         >
           + New vendor
         </button>
@@ -132,7 +132,7 @@ export default function VendorsTable({ vendors: initial }: { vendors: Serialized
                       {v.email ? (
                         <a
                           href={`mailto:${v.email}`}
-                          className="text-[#0099FF] hover:underline"
+                          className="text-[#4A90E2] hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
                           {v.email}
@@ -147,7 +147,7 @@ export default function VendorsTable({ vendors: initial }: { vendors: Serialized
                           href={v.web.startsWith("http") ? v.web : `https://${v.web}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[#0099FF] hover:underline"
+                          className="text-[#4A90E2] hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
                           {v.web}
@@ -161,7 +161,7 @@ export default function VendorsTable({ vendors: initial }: { vendors: Serialized
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); openEdit(v); }}
-                        className="text-xs text-[#0099FF] hover:underline"
+                        className="text-xs text-[#4A90E2] hover:underline"
                       >
                         Edit
                       </button>

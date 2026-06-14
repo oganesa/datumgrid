@@ -32,9 +32,9 @@ type Props = {
 };
 
 const inputPlain =
-  "w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]";
+  "w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]";
 const inputWithIcon =
-  "w-full rounded border border-[#D5D5D5] py-2 pl-2 pr-9 text-sm outline-none focus:border-[#0099FF]";
+  "w-full rounded border border-[#E5EAF2] py-2 pl-2 pr-9 text-sm outline-none focus:border-[#4A90E2]";
 const labelRequired =
   "mb-1 block border-l-4 border-red-500 pl-2 text-xs font-medium text-gray-700";
 const labelOptional = "mb-1 block pl-2 text-xs font-medium text-gray-700";
@@ -155,7 +155,7 @@ export default function NewEquipmentModal({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-black/50 p-4">
       <div className="my-6 max-h-[min(92vh,920px)] w-full max-w-3xl overflow-y-auto rounded-lg bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-[#D5D5D5] bg-white px-5 py-4">
+        <div className="flex items-center justify-between border-b border-[#E5EAF2] bg-white px-5 py-4">
           <h2 className="text-lg font-semibold text-gray-900">Create equipment</h2>
           <button
             type="button"
@@ -220,7 +220,7 @@ export default function NewEquipmentModal({
                   id="description"
                   name="description"
                   rows={3}
-                  className="w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]"
+                  className="w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]"
                 />
               </div>
               <div>
@@ -382,17 +382,17 @@ export default function NewEquipmentModal({
             </div>
           </section>
 
-          <div className="flex justify-end gap-3 border-t border-[#D5D5D5] pt-4">
+          <div className="flex justify-end gap-3 border-t border-[#E5EAF2] pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md border border-[#D5D5D5] bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-md border border-[#E5EAF2] bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]"
+              className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
             >
               Save equipment
             </button>

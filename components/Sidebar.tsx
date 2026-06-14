@@ -46,17 +46,17 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
 
   function linkCls(active: boolean) {
     return `flex items-center px-4 py-3 rounded-lg font-medium transition-all ${
-      active ? "text-[#0099FF] bg-[#D5EEFF]" : "text-[#000000] hover:bg-[#F5F5F5]"
+      active ? "text-[#4A90E2] bg-[#EBF3FF]" : "text-[#1F2937] hover:bg-[#F5F5F5]"
     }`;
   }
 
   return (
-    <aside className="w-64 bg-[#FFFFFF] h-screen flex flex-col text-[#000000] fixed left-0 top-0 border-r border-[#D5D5D5]">
+    <aside className="w-64 bg-[#FFFFFF] h-screen flex flex-col text-[#1F2937] fixed left-0 top-0 border-r border-[#E5EAF2]">
       {/* Logo */}
-      <div className="border-b border-[#D5D5D5] bg-white px-6 py-5 shrink-0">
+      <div className="border-b border-[#E5EAF2] bg-white px-6 py-5 shrink-0">
         <Link
           href="/"
-          className="block rounded-sm bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#243757] focus-visible:ring-offset-2"
+          className="block rounded-sm bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#1C2E4A] focus-visible:ring-offset-2"
         >
           <img
             src="/datumgrid-logo.svg"
@@ -72,7 +72,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {/* Main Modules */}
-        <div className="px-4 pb-2 pt-1 text-xs font-semibold uppercase tracking-wider text-[#808080]">
+        <div className="px-4 pb-2 pt-1 text-xs font-semibold uppercase tracking-wider text-[#6B7280]">
           Main Modules
         </div>
 
@@ -97,7 +97,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
         })}
 
         {/* System Catalogues */}
-        <div className="px-4 pb-2 pt-5 text-xs font-semibold uppercase tracking-wider text-[#808080]">
+        <div className="px-4 pb-2 pt-5 text-xs font-semibold uppercase tracking-wider text-[#6B7280]">
           System Catalogues
         </div>
 
@@ -113,7 +113,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
       </nav>
 
       {/* Bottom — Settings + user info */}
-      <div className="shrink-0 border-t border-[#D5D5D5] p-4 space-y-1">
+      <div className="shrink-0 border-t border-[#E5EAF2] p-4 space-y-1">
         <Link
           href="/settings"
           className={linkCls(pathname === "/settings")}
@@ -123,23 +123,23 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
         </Link>
 
         {userLabel ? (
-          <div className="mt-3 border-t border-[#D5D5D5] pt-3 space-y-2">
-            <p className="truncate px-1 text-sm font-medium text-[#000000]">
+          <div className="mt-3 border-t border-[#E5EAF2] pt-3 space-y-2">
+            <p className="truncate px-1 text-sm font-medium text-[#1F2937]">
               {userLabel}
             </p>
             <a
               href="/auth/logout"
-              className="block px-1 text-sm font-medium text-[#0099FF] hover:underline"
+              className="block px-1 text-sm font-medium text-[#4A90E2] hover:underline"
             >
               Log out
             </a>
-            <p className="px-1 pt-1 text-xs text-[#808080]">
+            <p className="px-1 pt-1 text-xs text-[#6B7280]">
               Axis Programm 2026
             </p>
           </div>
         ) : (
-          <div className="mt-3 border-t border-[#D5D5D5] pt-3">
-            <p className="px-1 text-xs text-[#808080]">Axis Programm 2026</p>
+          <div className="mt-3 border-t border-[#E5EAF2] pt-3">
+            <p className="px-1 text-xs text-[#6B7280]">Axis Programm 2026</p>
           </div>
         )}
       </div>

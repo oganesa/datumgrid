@@ -47,13 +47,13 @@ export default function ContactPicker({ name, options, defaultValue }: Props) {
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           placeholder="Search contact…"
-          className="w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]"
+          className="w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]"
         />
         {selected && (
           <button
             type="button"
             onClick={clear}
-            className="shrink-0 rounded border border-[#D5D5D5] px-2 text-gray-400 hover:text-gray-700"
+            className="shrink-0 rounded border border-[#E5EAF2] px-2 text-gray-400 hover:text-gray-700"
             title="Clear"
           >
             ✕
@@ -68,7 +68,7 @@ export default function ContactPicker({ name, options, defaultValue }: Props) {
               <button
                 type="button"
                 onMouseDown={(e) => { e.preventDefault(); pick(o); }}
-                className="flex w-full flex-col px-3 py-1.5 text-left hover:bg-[#D5EEFF]"
+                className="flex w-full flex-col px-3 py-1.5 text-left hover:bg-[#EBF3FF]"
               >
                 <span className="text-sm font-medium text-gray-900">{o.fullName}</span>
                 {(o.email || o.phone) && (

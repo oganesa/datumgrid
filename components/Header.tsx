@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex min-h-[3.25rem] items-center justify-between gap-4 border-b border-[#D5D5D5] bg-white px-8 py-4">
+      <header className="flex min-h-[3.25rem] items-center justify-between gap-4 border-b border-[#E5EAF2] bg-white px-8 py-4">
         <h1 className="min-w-0 shrink text-xl font-semibold tracking-tight text-gray-900">
           {pageTitle}
         </h1>
@@ -36,14 +36,14 @@ const Header = () => {
               <button
                 type="button"
                 onClick={() => setGroupOpen(true)}
-                className="rounded-md border border-[#0099FF] bg-white px-4 py-2 text-sm font-bold text-[#0099FF] shadow-sm transition hover:bg-[#D5EEFF]"
+                className="rounded-md border border-[#4A90E2] bg-white px-4 py-2 text-sm font-bold text-[#4A90E2] shadow-sm transition hover:bg-[#EBF3FF]"
               >
                 + New cost group
               </button>
               <button
                 type="button"
                 onClick={() => setItemOpen(true)}
-                className="rounded-md bg-[#0099FF] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#2AAAFF]"
+                className="rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#7FB3FF]"
               >
                 + New cost item
               </button>
@@ -52,7 +52,7 @@ const Header = () => {
             <button
               type="button"
               onClick={() => setProjectOpen(true)}
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#2AAAFF]"
+              className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#7FB3FF]"
             >
               + NEW PROJECT
             </button>

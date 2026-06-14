@@ -5,7 +5,7 @@ type IconProps = {
 
 const base = (active: boolean) =>
   `w-5 h-5 mr-3 shrink-0 fill-none ${
-    active ? "stroke-[#0099FF]" : "stroke-[#808080]"
+    active ? "stroke-[#4A90E2]" : "stroke-[#6B7280]"
   }`;
 
 export function ProjectsIcon({ active, className }: IconProps) {

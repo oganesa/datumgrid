@@ -11,7 +11,7 @@ import {
 import type { SerializedAssetType } from "@/lib/asset-types";
 
 const inputCls =
-  "w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]";
+  "w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]";
 const labelCls = "mb-1 block border-l-4 border-red-500 pl-2 text-xs font-medium text-gray-700";
 
 function AssetTypeModal({
@@ -50,7 +50,7 @@ function AssetTypeModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md rounded-lg bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-[#D5D5D5] px-5 py-4">
+        <div className="flex items-center justify-between border-b border-[#E5EAF2] px-5 py-4">
           <h2 className="text-base font-semibold text-gray-900">
             {editItem ? "Edit asset type" : "Create asset type"}
           </h2>
@@ -98,18 +98,18 @@ function AssetTypeModal({
               {error}
             </p>
           )}
-          <div className="flex justify-end gap-3 border-t border-[#D5D5D5] pt-4">
+          <div className="flex justify-end gap-3 border-t border-[#E5EAF2] pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md border border-[#D5D5D5] px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-md border border-[#E5EAF2] px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-semibold text-white hover:bg-[#2AAAFF] disabled:opacity-60"
+              className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-semibold text-white hover:bg-[#7FB3FF] disabled:opacity-60"
             >
               {saving ? "Saving…" : "Save"}
             </button>
@@ -164,7 +164,7 @@ export default function AssetTypeClient({
         <button
           type="button"
           onClick={openCreate}
-          className="rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF]"
+          className="rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF]"
         >
           + Create type
         </button>
@@ -204,7 +204,7 @@ export default function AssetTypeClient({
                       <button
                         type="button"
                         onClick={() => openEdit(t)}
-                        className="text-xs text-[#0099FF] hover:underline"
+                        className="text-xs text-[#4A90E2] hover:underline"
                       >
                         Edit
                       </button>

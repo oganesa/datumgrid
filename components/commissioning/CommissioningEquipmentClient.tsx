@@ -199,7 +199,7 @@ export default function CommissioningEquipmentClient({
                 : undefined
             }
             onClick={() => setModalOpen(true)}
-            className="shrink-0 rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF] disabled:cursor-not-allowed disabled:opacity-50"
+            className="shrink-0 rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF] disabled:cursor-not-allowed disabled:opacity-50"
           >
             + Create equipment
           </button>

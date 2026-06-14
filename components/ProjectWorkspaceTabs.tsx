@@ -28,7 +28,7 @@ export default function ProjectWorkspaceTabs({ projectId }: Props) {
   const current = activeTab(pathname, projectId);
 
   return (
-    <div className="flex items-end justify-between gap-2 border-b border-[#D5D5D5] bg-white">
+    <div className="flex items-end justify-between gap-2 border-b border-[#E5EAF2] bg-white">
       <nav
         className="-mb-px flex min-w-0 flex-1 gap-1 overflow-x-auto px-1 text-sm"
         aria-label="Project sections"

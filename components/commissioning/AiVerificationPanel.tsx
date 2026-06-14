@@ -68,7 +68,7 @@ export default function AiVerificationPanel({ equipmentSummary }: Props) {
             required
             minLength={50}
             placeholder="Paste sections from the manufacturer installation / commissioning manual that apply to this equipment…"
-            className="w-full rounded border border-[#D5D5D5] p-2 text-sm outline-none focus:border-[#0099FF]"
+            className="w-full rounded border border-[#E5EAF2] p-2 text-sm outline-none focus:border-[#4A90E2]"
           />
         </div>
 
@@ -88,7 +88,7 @@ export default function AiVerificationPanel({ equipmentSummary }: Props) {
             onChange={(e) =>
               setFiles(e.target.files ? Array.from(e.target.files) : [])
             }
-            className="block w-full text-sm text-gray-700 file:mr-3 file:rounded file:border-0 file:bg-[#D5EEFF] file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-[#0099FF] hover:file:bg-[#cceeff]"
+            className="block w-full text-sm text-gray-700 file:mr-3 file:rounded file:border-0 file:bg-[#EBF3FF] file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-[#4A90E2] hover:file:bg-[#cceeff]"
           />
           {files.length > 0 ? (
             <p className="mt-1 text-xs text-gray-500">
@@ -100,7 +100,7 @@ export default function AiVerificationPanel({ equipmentSummary }: Props) {
         <button
           type="submit"
           disabled={loading || manualText.trim().length < 50 || files.length === 0}
-          className="rounded-md bg-[#0099FF] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2AAAFF] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#4A90E2] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7FB3FF] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? "Running Gemini…" : "Run AI verification"}
         </button>

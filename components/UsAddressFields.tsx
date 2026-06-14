@@ -9,7 +9,7 @@ import {
 } from "@/lib/parse-google-address-components";
 
 const inputClass =
-  "w-full rounded border border-[#D5D5D5] p-2 outline-none focus:border-[#0099FF]";
+  "w-full rounded border border-[#E5EAF2] p-2 outline-none focus:border-[#4A90E2]";
 
 type DefaultAddressValues = {
   address1?: string | null;
@@ -193,7 +193,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
           JavaScript API + Places API enabled to turn on address suggestions.
         </p>
         <div className="flex flex-col sm:col-span-2">
-          <label className="mb-1 text-xs text-[#808080]">Address line 1</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Address line 1</label>
           <input
             name="address1"
             type="text"
@@ -203,7 +203,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
           />
         </div>
         <div className="flex flex-col sm:col-span-2">
-          <label className="mb-1 text-xs text-[#808080]">Address line 2</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Address line 2</label>
           <input
             name="address2"
             type="text"
@@ -213,19 +213,19 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
           />
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">City</label>
+          <label className="mb-1 text-xs text-[#6B7280]">City</label>
           <input name="city" type="text" defaultValue={defaultValues?.city ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">State</label>
+          <label className="mb-1 text-xs text-[#6B7280]">State</label>
           <input name="state" type="text" defaultValue={defaultValues?.state ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">ZIP code</label>
+          <label className="mb-1 text-xs text-[#6B7280]">ZIP code</label>
           <input name="zipCode" type="text" defaultValue={defaultValues?.zipCode ?? ""} className={inputClass} />
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 text-xs text-[#808080]">Country</label>
+          <label className="mb-1 text-xs text-[#6B7280]">Country</label>
           <input
             name="country"
             type="text"
@@ -250,7 +250,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
       </p>
 
       <div className="relative sm:col-span-2" ref={wrapperRef}>
-        <label className="mb-1 block text-xs text-[#808080]">Address line 1</label>
+        <label className="mb-1 block text-xs text-[#6B7280]">Address line 1</label>
         <input
           name="address1"
           type="text"
@@ -277,7 +277,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
               <li key={p.place_id} role="option">
                 <button
                   type="button"
-                  className="flex w-full gap-2 px-3 py-2 text-left text-sm hover:bg-[#D5EEFF]"
+                  className="flex w-full gap-2 px-3 py-2 text-left text-sm hover:bg-[#EBF3FF]"
                   onMouseDown={(e) => {
                     e.preventDefault();
                     onPickPrediction(p);
@@ -295,7 +295,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
       </div>
 
       <div className="flex flex-col sm:col-span-2">
-        <label className="mb-1 text-xs text-[#808080]">Address line 2</label>
+        <label className="mb-1 text-xs text-[#6B7280]">Address line 2</label>
         <input
           ref={address2Ref}
           name="address2"
@@ -307,7 +307,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
         />
       </div>
       <div className="flex flex-col">
-        <label className="mb-1 text-xs text-[#808080]">City</label>
+        <label className="mb-1 text-xs text-[#6B7280]">City</label>
         <input
           ref={cityRef}
           name="city"
@@ -318,7 +318,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
         />
       </div>
       <div className="flex flex-col">
-        <label className="mb-1 text-xs text-[#808080]">State</label>
+        <label className="mb-1 text-xs text-[#6B7280]">State</label>
         <input
           ref={stateRef}
           name="state"
@@ -329,7 +329,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
         />
       </div>
       <div className="flex flex-col">
-        <label className="mb-1 text-xs text-[#808080]">ZIP code</label>
+        <label className="mb-1 text-xs text-[#6B7280]">ZIP code</label>
         <input
           ref={zipRef}
           name="zipCode"
@@ -340,7 +340,7 @@ export default function UsAddressFields({ defaultValues }: { defaultValues?: Def
         />
       </div>
       <div className="flex flex-col">
-        <label className="mb-1 text-xs text-[#808080]">Country</label>
+        <label className="mb-1 text-xs text-[#6B7280]">Country</label>
         <input
           ref={countryRef}
           name="country"

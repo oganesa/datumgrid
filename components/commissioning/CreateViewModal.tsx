@@ -162,7 +162,7 @@ export default function CreateViewModal({
   }
 
   const inputCls =
-    "w-full rounded border border-[#D5D5D5] bg-[#1a1a2e] px-3 py-1.5 text-sm text-white outline-none focus:border-[#0099FF]";
+    "w-full rounded border border-[#E5EAF2] bg-[#1a1a2e] px-3 py-1.5 text-sm text-white outline-none focus:border-[#4A90E2]";
   const labelCls = "mb-1 block text-xs font-medium text-gray-300";
 
   return (
@@ -193,7 +193,7 @@ export default function CreateViewModal({
               <select
                 value={filterField}
                 onChange={(e) => setFilterField(e.target.value as FilterField)}
-                className="rounded border border-white/20 bg-[#1a1a2e] px-2 py-1.5 text-sm text-white outline-none focus:border-[#0099FF]"
+                className="rounded border border-white/20 bg-[#1a1a2e] px-2 py-1.5 text-sm text-white outline-none focus:border-[#4A90E2]"
               >
                 {FILTER_FIELDS.map((f) => (
                   <option key={f.key} value={f.key}>
@@ -206,7 +206,7 @@ export default function CreateViewModal({
                 onChange={(e) =>
                   setFilterOperator(e.target.value as FilterOperator)
                 }
-                className="rounded border border-white/20 bg-[#1a1a2e] px-2 py-1.5 text-sm text-white outline-none focus:border-[#0099FF]"
+                className="rounded border border-white/20 bg-[#1a1a2e] px-2 py-1.5 text-sm text-white outline-none focus:border-[#4A90E2]"
               >
                 {FILTER_OPERATORS.map((o) => (
                   <option key={o.key} value={o.key}>
@@ -219,7 +219,7 @@ export default function CreateViewModal({
                 value={filterValue}
                 onChange={(e) => setFilterValue(e.target.value)}
                 placeholder="Value (leave empty for no filter)"
-                className="min-w-0 flex-1 rounded border border-white/20 bg-[#1a1a2e] px-3 py-1.5 text-sm text-white placeholder-gray-500 outline-none focus:border-[#0099FF]"
+                className="min-w-0 flex-1 rounded border border-white/20 bg-[#1a1a2e] px-3 py-1.5 text-sm text-white placeholder-gray-500 outline-none focus:border-[#4A90E2]"
               />
             </div>
 
@@ -255,7 +255,7 @@ export default function CreateViewModal({
                   type="checkbox"
                   checked={customizeColumns}
                   onChange={(e) => setCustomizeColumns(e.target.checked)}
-                  className="h-4 w-4 accent-[#0099FF]"
+                  className="h-4 w-4 accent-[#4A90E2]"
                 />
                 Customize Columns to be Displayed
               </label>
@@ -274,13 +274,13 @@ export default function CreateViewModal({
                       value={availSearch}
                       onChange={(e) => setAvailSearch(e.target.value)}
                       placeholder="Search"
-                      className="w-full rounded border border-white/20 bg-[#12122a] px-2 py-1 text-xs text-white outline-none focus:border-[#0099FF]"
+                      className="w-full rounded border border-white/20 bg-[#12122a] px-2 py-1 text-xs text-white outline-none focus:border-[#4A90E2]"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={moveAllToSelected}
-                    className="px-3 py-1.5 text-left text-xs font-medium text-[#0099FF] hover:underline"
+                    className="px-3 py-1.5 text-left text-xs font-medium text-[#4A90E2] hover:underline"
                   >
                     MOVE ALL ▶
                   </button>
@@ -315,13 +315,13 @@ export default function CreateViewModal({
                       value={selSearch}
                       onChange={(e) => setSelSearch(e.target.value)}
                       placeholder="Search"
-                      className="w-full rounded border border-white/20 bg-[#12122a] px-2 py-1 text-xs text-white outline-none focus:border-[#0099FF]"
+                      className="w-full rounded border border-white/20 bg-[#12122a] px-2 py-1 text-xs text-white outline-none focus:border-[#4A90E2]"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={moveAllToAvailable}
-                    className="px-3 py-1.5 text-left text-xs font-medium text-[#0099FF] hover:underline"
+                    className="px-3 py-1.5 text-left text-xs font-medium text-[#4A90E2] hover:underline"
                   >
                     ◀ MOVE ALL
                   </button>
@@ -399,7 +399,7 @@ export default function CreateViewModal({
             <button
               type="submit"
               disabled={saving}
-              className="rounded-md bg-[#0099FF] px-5 py-2 text-sm font-semibold text-white hover:bg-[#2AAAFF] disabled:opacity-60"
+              className="rounded-md bg-[#4A90E2] px-5 py-2 text-sm font-semibold text-white hover:bg-[#7FB3FF] disabled:opacity-60"
             >
               {saving ? "Saving…" : "Save"}
             </button>

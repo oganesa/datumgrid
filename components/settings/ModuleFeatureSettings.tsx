@@ -109,7 +109,7 @@ export default function ModuleFeatureSettings({ initial }: Props) {
         return (
           <section
             key={section.field}
-            className="rounded-lg border border-[#D5D5D5] bg-white p-5 shadow-sm"
+            className="rounded-lg border border-[#E5EAF2] bg-white p-5 shadow-sm"
           >
             <h2 className="text-base font-semibold text-gray-900">
               {section.title}
@@ -130,8 +130,8 @@ export default function ModuleFeatureSettings({ initial }: Props) {
                 aria-checked={on}
                 disabled={pending}
                 onClick={() => toggle(section.field, !on)}
-                className={`relative inline-flex h-8 w-14 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0099FF] focus-visible:ring-offset-2 disabled:opacity-50 ${
-                  on ? "bg-[#0099FF]" : "bg-gray-300"
+                className={`relative inline-flex h-8 w-14 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4A90E2] focus-visible:ring-offset-2 disabled:opacity-50 ${
+                  on ? "bg-[#4A90E2]" : "bg-gray-300"
                 }`}
               >
                 <span className="sr-only">Toggle {section.title}</span>

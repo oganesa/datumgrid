@@ -44,7 +44,7 @@ export default function ProjectTabContent({
   }
 
   return (
-    <div className="rounded-md border border-dashed border-[#D5D5D5] bg-white p-12 text-center">
+    <div className="rounded-md border border-dashed border-[#E5EAF2] bg-white p-12 text-center">
       <p className="text-lg font-medium text-gray-800">{tabLabel(tab)}</p>
       <p className="mt-2 text-sm text-gray-500">
         This section is not implemented yet. Content for {tabLabel(tab)} will
