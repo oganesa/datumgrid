@@ -53,7 +53,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
   return (
     <aside className="w-64 bg-[#FFFFFF] h-screen flex flex-col text-[#1F2937] fixed left-0 top-0 border-r border-[#E5EAF2]">
       {/* Logo */}
-      <div className="border-b border-[#E5EAF2] bg-white px-6 py-5 shrink-0">
+      <div className="flex min-h-[3.25rem] items-center border-b border-[#E5EAF2] bg-white px-6 py-4 shrink-0">
         <Link
           href="/"
           className="block rounded-sm bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#1C2E4A] focus-visible:ring-offset-2"
@@ -62,7 +62,7 @@ const Sidebar = ({ userLabel }: SidebarProps) => {
             src="/datumgrid-logo.svg"
             alt="DatumGrid"
             width={220}
-            height={56}
+            height={36}
             decoding="async"
             className="block h-9 w-auto max-w-full bg-transparent object-contain object-left"
           />
