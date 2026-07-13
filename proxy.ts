@@ -50,6 +50,12 @@ export async function proxy(request: Request) {
     return NextResponse.next();
   }
 
+  // API routes handle their own auth via auth0.getSession() — running
+  // auth0.middleware() on them consumes the request body and causes 404s.
+  if (path.startsWith("/api/")) {
+    return NextResponse.next();
+  }
+
   const authResponse = await auth0.middleware(request);
   return authResponse;
 }

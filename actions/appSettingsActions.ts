@@ -49,3 +49,23 @@ export async function setModuleToggle(
     return { success: false as const, error: msg };
   }
 }
+
+export async function saveAiSettings(
+  geminiApiKey: string,
+  geminiModel: string
+): Promise<{ success: true } | { success: false; error: string }> {
+  try {
+    await connectDB();
+    await AppSettings.findOneAndUpdate(
+      {},
+      { $set: { geminiApiKey: geminiApiKey.trim(), geminiModel: geminiModel.trim() } },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    revalidatePath("/settings");
+    return { success: true as const };
+  } catch (e: unknown) {
+    console.error("saveAiSettings:", e);
+    const msg = e instanceof Error ? e.message : "Could not save.";
+    return { success: false as const, error: msg };
+  }
+}

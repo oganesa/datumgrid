@@ -1,5 +1,7 @@
 import CommissioningEquipmentClient from "@/components/commissioning/CommissioningEquipmentClient";
+import DocumentsTab from "@/components/DocumentsTab";
 import ProjectDashboard from "@/components/ProjectDashboard";
+import ScheduleTab from "@/components/ScheduleTab";
 import type { SerializedCommissioningEquipment } from "@/lib/commissioning-equipment";
 import type { SerializedContact } from "@/lib/contacts";
 import type { SerializedProject } from "@/lib/projects";
@@ -29,6 +31,14 @@ export default function ProjectTabContent({
 }: Props) {
   if (tab === "dashboard") {
     return <ProjectDashboard />;
+  }
+
+  if (tab === "schedule") {
+    return <ScheduleTab projectId={project._id} />;
+  }
+
+  if (tab === "documents") {
+    return <DocumentsTab projectId={project._id} />;
   }
 
   if (tab === "commissioning") {

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { HeaderTitleProvider } from "@/components/HeaderTitleContext";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import AppShell from "@/components/AppShell";
 import { auth0, isAuth0Configured } from "@/lib/auth0";
 
 
@@ -41,15 +39,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {isAuthenticated ? (
-          <div className="flex bg-white">
-            <Sidebar userLabel={userLabel} />
-            <div className="flex-1 ml-64 flex min-h-screen flex-col">
-              <HeaderTitleProvider>
-                <Header />
-                <main className="flex-1 bg-[#F7F9FC] p-8">{children}</main>
-              </HeaderTitleProvider>
-            </div>
-          </div>
+          <AppShell userLabel={userLabel}>{children}</AppShell>
         ) : (
           children
         )}

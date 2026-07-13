@@ -1,4 +1,4 @@
-import ModuleFeatureSettings from "@/components/settings/ModuleFeatureSettings";
+import SettingsShell from "@/components/settings/SettingsShell";
 import { getAppSettings } from "@/lib/app-settings";
 import { auth0, isAuth0Configured } from "@/lib/auth0";
 
@@ -34,9 +34,5 @@ export default async function SettingsPage() {
 
   const settings = await getAppSettings();
 
-  return (
-    <div className="p-6">
-      <ModuleFeatureSettings initial={settings} />
-    </div>
-  );
+  return <SettingsShell initial={settings} />;
 }

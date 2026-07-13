@@ -15,6 +15,7 @@ const Header = () => {
   const router = useRouter();
   const { titleOverride } = useHeaderTitle();
   const isCatalog = pathname === "/catalog";
+  const isSettings = pathname === "/settings";
 
   const [projectOpen, setProjectOpen] = useState(false);
   const [groupOpen, setGroupOpen] = useState(false);
@@ -26,12 +27,12 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex min-h-[3.25rem] items-center justify-between gap-4 border-b border-[#E5EAF2] bg-white px-8 py-4">
+      <header className="flex min-h-[3.25rem] items-center justify-between gap-4 border-b border-[#E5EAF2] bg-white px-8">
         <h1 className="min-w-0 shrink text-xl font-semibold tracking-tight text-gray-900">
           {pageTitle}
         </h1>
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-3">
-          {isCatalog ? (
+          {isCatalog && (
             <>
               <button
                 type="button"
@@ -48,7 +49,8 @@ const Header = () => {
                 + New cost item
               </button>
             </>
-          ) : (
+          )}
+          {!isCatalog && !isSettings && (
             <button
               type="button"
               onClick={() => setProjectOpen(true)}

@@ -86,12 +86,11 @@ export default function ModuleFeatureSettings({ initial }: Props) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold text-gray-900">Settings</h1>
-        <p className="mt-1 text-sm text-gray-600">
-          Control which modules appear in the sidebar and stay available in the app
-          (main modules and construction management).
+        <h2 className="text-lg font-semibold text-[#1C2E4A]">Modules</h2>
+        <p className="mt-1 text-sm text-[#6B7280]">
+          Control which modules appear in the sidebar and stay available in the app.
         </p>
       </div>
 
@@ -104,6 +103,7 @@ export default function ModuleFeatureSettings({ initial }: Props) {
         </div>
       ) : null}
 
+      <div className="space-y-4">
       {SECTIONS.map((section) => {
         const on = values[section.field];
         return (
@@ -147,6 +147,7 @@ export default function ModuleFeatureSettings({ initial }: Props) {
           </section>
         );
       })}
+      </div>
     </div>
   );
 }

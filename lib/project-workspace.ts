@@ -1,15 +1,6 @@
 export const PROJECT_TAB_SLUGS = [
-  "budget",
-  "plans",
   "documents",
-  "specifications",
   "schedule",
-  "todos",
-  "daily-logs",
-  "time",
-  "files",
-  "messages",
-  "reports",
   "commissioning",
 ] as const;
 
@@ -24,17 +15,8 @@ export const PROJECT_TAB_ORDER: {
   label: string;
 }[] = [
   { slug: "dashboard", label: "Dashboard" },
-  { slug: "budget", label: "Budget" },
-  { slug: "plans", label: "Plans" },
   { slug: "documents", label: "Documents" },
-  { slug: "specifications", label: "Specifications" },
   { slug: "schedule", label: "Schedule" },
-  { slug: "todos", label: "To-do's" },
-  { slug: "daily-logs", label: "Daily logs" },
-  { slug: "time", label: "Time" },
-  { slug: "files", label: "Files" },
-  { slug: "messages", label: "Messages" },
-  { slug: "reports", label: "Reports" },
   { slug: "commissioning", label: "Commissioning" },
 ];
 

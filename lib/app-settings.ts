@@ -11,6 +11,10 @@ export type SerializedAppSettings = {
   rfiEnabled: boolean;
   submittalsEnabled: boolean;
   punchListEnabled: boolean;
+  geminiApiKey: string;
+  geminiModel: string;
+  googleClientId: string;
+  googleClientSecret: string;
 };
 
 const DEFAULTS: SerializedAppSettings = {
@@ -21,6 +25,10 @@ const DEFAULTS: SerializedAppSettings = {
   rfiEnabled: true,
   submittalsEnabled: true,
   punchListEnabled: true,
+  geminiApiKey: "",
+  geminiModel: "gemini-2.0-flash-lite",
+  googleClientId: "",
+  googleClientSecret: "",
 };
 
 function serialize(raw: Record<string, unknown>): SerializedAppSettings {
@@ -32,6 +40,10 @@ function serialize(raw: Record<string, unknown>): SerializedAppSettings {
     rfiEnabled: Boolean(raw.rfiEnabled ?? true),
     submittalsEnabled: Boolean(raw.submittalsEnabled ?? true),
     punchListEnabled: Boolean(raw.punchListEnabled ?? true),
+    geminiApiKey: String(raw.geminiApiKey ?? ""),
+    geminiModel: String(raw.geminiModel ?? "gemini-2.0-flash-lite"),
+    googleClientId: String(raw.googleClientId ?? ""),
+    googleClientSecret: String(raw.googleClientSecret ?? ""),
   };
 }
 

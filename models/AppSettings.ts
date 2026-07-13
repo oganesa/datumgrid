@@ -9,6 +9,10 @@ const AppSettingsSchema = new Schema(
     rfiEnabled: { type: Boolean, default: true },
     submittalsEnabled: { type: Boolean, default: true },
     punchListEnabled: { type: Boolean, default: true },
+    geminiApiKey: { type: String, default: "" },
+    geminiModel: { type: String, default: "gemini-2.0-flash-lite" },
+    googleClientId: { type: String, default: "" },
+    googleClientSecret: { type: String, default: "" },
   },
   { timestamps: true }
 );
