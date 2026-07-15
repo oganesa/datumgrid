@@ -1,6 +1,7 @@
 export const PROJECT_TAB_SLUGS = [
   "documents",
   "schedule",
+  "plans",
   "commissioning",
 ] as const;
 
@@ -17,6 +18,7 @@ export const PROJECT_TAB_ORDER: {
   { slug: "dashboard", label: "Dashboard" },
   { slug: "documents", label: "Documents" },
   { slug: "schedule", label: "Schedule" },
+  { slug: "plans", label: "Plans" },
   { slug: "commissioning", label: "Commissioning" },
 ];
 
