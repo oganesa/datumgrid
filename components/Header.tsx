@@ -9,6 +9,7 @@ import { pageTitleForPathname } from "@/lib/page-header";
 import NewProjectModal from "./NewProjectModal";
 import NewCostGroupModal from "./catalog/NewCostGroupModal";
 import NewCostItemModal from "./catalog/NewCostItemModal";
+import { useOptionalProjectWorkspace } from "./ProjectWorkspaceContext";
 
 const Header = () => {
   const pathname = usePathname();
@@ -16,6 +17,8 @@ const Header = () => {
   const { titleOverride } = useHeaderTitle();
   const isCatalog = pathname === "/catalog";
   const isSettings = pathname === "/settings";
+  const isProjectWorkspace = pathname !== null && /^\/projects\/[^/]+(?:\/|$)/.test(pathname);
+  const projectWorkspace = useOptionalProjectWorkspace();
 
   const [projectOpen, setProjectOpen] = useState(false);
   const [groupOpen, setGroupOpen] = useState(false);
@@ -50,7 +53,17 @@ const Header = () => {
               </button>
             </>
           )}
-          {!isCatalog && !isSettings && (
+          {isProjectWorkspace ? (
+            projectWorkspace ? (
+              <button
+                type="button"
+                onClick={() => projectWorkspace.beginEdit()}
+                className="rounded-md border border-[#4A90E2] bg-white px-5 py-2 text-sm font-bold text-[#4A90E2] shadow-sm transition hover:bg-[#EBF3FF]"
+              >
+                Edit Project
+              </button>
+            ) : null
+          ) : !isCatalog && !isSettings ? (
             <button
               type="button"
               onClick={() => setProjectOpen(true)}
@@ -58,7 +71,7 @@ const Header = () => {
             >
               + NEW PROJECT
             </button>
-          )}
+          ) : null}
         </div>
       </header>
 

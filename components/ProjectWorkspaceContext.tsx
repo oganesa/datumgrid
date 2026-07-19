@@ -39,6 +39,10 @@ export function useProjectWorkspace(): ProjectWorkspaceContextValue {
   return ctx;
 }
 
+export function useOptionalProjectWorkspace(): ProjectWorkspaceContextValue | null {
+  return useContext(ProjectWorkspaceContext);
+}
+
 function appendIfPresent(fd: FormData, key: string, value: string | null | undefined) {
   if (value == null || value === "") return;
   fd.set(key, value);

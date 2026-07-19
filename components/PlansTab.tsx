@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import PdfThumbnail from "@/components/PdfThumbnail";
+import PdfViewer from "@/components/PdfViewer";
 
 const DISCIPLINES = [
   "Architectural",
@@ -101,7 +103,7 @@ export default function PlansTab({ projectId }: Props) {
 
   const handleUpload = async (file: File) => {
     setUploading(true);
-    setUploadProgress(`Splitting ${file.name}...`);
+    setUploadProgress(`Splitting ${file.name}…`);
     try {
       const form = new FormData();
       form.append("file", file);
@@ -174,14 +176,11 @@ export default function PlansTab({ projectId }: Props) {
 
   const addParameter = async () => {
     if (!newParam.name.trim()) return;
-    const res = await fetch(
-      `/api/projects/${projectId}/plans/parameters`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newParam),
-      }
-    );
+    const res = await fetch(`/api/projects/${projectId}/plans/parameters`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newParam),
+    });
     if (res.ok) {
       const data = (await res.json()) as { parameter: Parameter };
       setParameters((prev) => [...prev, data.parameter]);
@@ -213,84 +212,86 @@ export default function PlansTab({ projectId }: Props) {
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center text-sm text-gray-400">
-        Loading plans...
+        Loading plans…
       </div>
     );
   }
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#E5EAF2] bg-white px-4 py-2">
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="application/pdf"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) handleUpload(f);
-          }}
-        />
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          disabled={uploading}
-          className="flex items-center gap-1.5 rounded border border-[#E5EAF2] bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      {/* ── Toolbar ── */}
+      {!viewingSheet && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-[#E5EAF2] bg-white px-4 py-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) handleUpload(f);
+            }}
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="flex items-center gap-1.5 rounded border border-[#E5EAF2] bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-            />
-          </svg>
-          {uploading ? "Processing..." : "Upload Plans"}
-        </button>
-
-        {uploadProgress && (
-          <span className="text-sm text-gray-500">{uploadProgress}</span>
-        )}
-
-        {usedDisciplines.length > 0 && (
-          <div className="ml-2 flex flex-wrap items-center gap-1">
-            <button
-              onClick={() => setFilterDiscipline("all")}
-              className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-                filterDiscipline === "all"
-                  ? "bg-orange-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-              }`}
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              All
-            </button>
-            {usedDisciplines.map((d) => (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+            {uploading ? "Processing…" : "Upload Plans"}
+          </button>
+
+          {uploadProgress && (
+            <span className="text-sm text-gray-500">{uploadProgress}</span>
+          )}
+
+          {usedDisciplines.length > 0 && (
+            <div className="ml-2 flex flex-wrap items-center gap-1">
               <button
-                key={d}
-                onClick={() =>
-                  setFilterDiscipline(d === filterDiscipline ? "all" : d)
-                }
+                onClick={() => setFilterDiscipline("all")}
                 className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-                  filterDiscipline === d
+                  filterDiscipline === "all"
                     ? "bg-orange-500 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
-                {d}
+                All
               </button>
-            ))}
-          </div>
-        )}
-      </div>
+              {usedDisciplines.map((d) => (
+                <button
+                  key={d}
+                  onClick={() =>
+                    setFilterDiscipline(d === filterDiscipline ? "all" : d)
+                  }
+                  className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
+                    filterDiscipline === d
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
-      {/* Body */}
-      <div className="flex min-h-0 flex-1">
-        {/* Left: Parameters panel */}
+      {/* ── Body ── */}
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        {/* Left: Parameters panel — always visible */}
         <div className="flex w-56 shrink-0 flex-col border-r border-[#E5EAF2] bg-white">
           <div className="border-b border-[#E5EAF2] px-3 py-2.5">
             <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
@@ -391,76 +392,37 @@ export default function PlansTab({ projectId }: Props) {
           </div>
         </div>
 
-        {/* Right: Sheets grid */}
-        <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
-          {filteredSheets.length === 0 ? (
-            <div className="flex h-52 flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white text-center">
-              <svg
-                className="mb-3 h-10 w-10 text-gray-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              <p className="text-sm font-medium text-gray-500">
-                No plan sheets yet
-              </p>
-              <p className="mt-1 text-xs text-gray-400">
-                Upload a PDF — it will be split into individual sheets
-                automatically
-              </p>
+        {/* Right: Grid OR inline PDF viewer */}
+        {viewingSheet ? (
+          <div className="flex min-w-0 min-h-0 flex-1 flex-col overflow-hidden bg-white">
+            {/* Viewer top bar */}
+            <div className="flex items-center gap-3 border-b border-[#E5EAF2] px-4 py-2">
               <button
-                onClick={() => fileInputRef.current?.click()}
-                className="mt-4 rounded-lg bg-orange-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-orange-600"
+                onClick={() => setViewingSheet(null)}
+                className="flex items-center gap-1.5 rounded border border-[#E5EAF2] px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50"
               >
-                Upload Plans
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Back to Plans
               </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {filteredSheets.map((sheet) => (
-                <SheetCard
-                  key={sheet._id}
-                  sheet={sheet}
-                  projectId={projectId}
-                  editingName={editingName}
-                  onView={() => setViewingSheet(sheet)}
-                  onEditName={() =>
-                    setEditingName({ id: sheet._id, value: sheet.sheetName })
-                  }
-                  onSaveName={(val) => saveSheetName(sheet._id, val)}
-                  onEditingChange={(val) =>
-                    setEditingName((e) => (e ? { ...e, value: val } : null))
-                  }
-                  onDisciplineChange={(d) => updateDiscipline(sheet._id, d)}
-                  onDelete={() => deleteSheet(sheet._id)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
 
-      {/* Sheet viewer modal */}
-      {viewingSheet && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-          onClick={() => setViewingSheet(null)}
-        >
-          <div
-            className="relative flex h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-white shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-[#E5EAF2] px-4 py-3">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="truncate font-medium text-gray-800">
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <span className="truncate text-sm font-medium text-gray-800">
                   {viewingSheet.sheetName}
+                </span>
+                <span className="shrink-0 text-xs text-gray-400">
+                  p.{viewingSheet.pageNumber}
                 </span>
                 {viewingSheet.discipline && (
                   <span
@@ -473,12 +435,57 @@ export default function PlansTab({ projectId }: Props) {
                   </span>
                 )}
               </div>
-              <button
-                onClick={() => setViewingSheet(null)}
-                className="ml-2 shrink-0 rounded p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-              >
+
+              {/* Prev / Next navigation */}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => {
+                    const idx = sheets.findIndex(
+                      (s) => s._id === viewingSheet._id
+                    );
+                    if (idx > 0) setViewingSheet(sheets[idx - 1]);
+                  }}
+                  disabled={sheets.findIndex((s) => s._id === viewingSheet._id) === 0}
+                  className="rounded border border-[#E5EAF2] px-2 py-1.5 text-xs text-gray-600 hover:bg-gray-50 disabled:opacity-30"
+                  title="Previous sheet"
+                >
+                  ‹ Prev
+                </button>
+                <button
+                  onClick={() => {
+                    const idx = sheets.findIndex(
+                      (s) => s._id === viewingSheet._id
+                    );
+                    if (idx < sheets.length - 1) setViewingSheet(sheets[idx + 1]);
+                  }}
+                  disabled={
+                    sheets.findIndex((s) => s._id === viewingSheet._id) ===
+                    sheets.length - 1
+                  }
+                  className="rounded border border-[#E5EAF2] px-2 py-1.5 text-xs text-gray-600 hover:bg-gray-50 disabled:opacity-30"
+                  title="Next sheet"
+                >
+                  Next ›
+                </button>
+              </div>
+            </div>
+
+            {/* PDF viewer — fills remaining height */}
+            <div className="flex-1 min-h-0">
+              <PdfViewer
+                key={viewingSheet._id}
+                url={`/api/projects/${projectId}/plans/${viewingSheet._id}/file`}
+                sheetId={viewingSheet._id}
+                projectId={projectId}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex-1 overflow-y-auto bg-white">
+            {filteredSheets.length === 0 ? (
+              <div className="flex h-52 flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white text-center">
                 <svg
-                  className="h-5 w-5"
+                  className="mb-3 h-10 w-10 text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -486,20 +493,49 @@ export default function PlansTab({ projectId }: Props) {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
+                    strokeWidth={1.5}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-              </button>
-            </div>
-            <iframe
-              src={`/api/projects/${projectId}/plans/${viewingSheet._id}/file`}
-              className="flex-1 rounded-b-xl"
-              title={viewingSheet.sheetName}
-            />
+                <p className="text-sm font-medium text-gray-500">
+                  No plan sheets yet
+                </p>
+                <p className="mt-1 text-xs text-gray-400">
+                  Upload a PDF — it will be split into individual sheets
+                  automatically
+                </p>
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="mt-4 rounded-lg bg-orange-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-orange-600"
+                >
+                  Upload Plans
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {filteredSheets.map((sheet) => (
+                  <SheetCard
+                    key={sheet._id}
+                    sheet={sheet}
+                    projectId={projectId}
+                    editingName={editingName}
+                    onView={() => setViewingSheet(sheet)}
+                    onEditName={() =>
+                      setEditingName({ id: sheet._id, value: sheet.sheetName })
+                    }
+                    onSaveName={(val) => saveSheetName(sheet._id, val)}
+                    onEditingChange={(val) =>
+                      setEditingName((e) => (e ? { ...e, value: val } : null))
+                    }
+                    onDisciplineChange={(d) => updateDiscipline(sheet._id, d)}
+                    onDelete={() => deleteSheet(sheet._id)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
@@ -532,28 +568,17 @@ function SheetCard({
 
   return (
     <div className="group relative flex flex-col rounded-lg border border-[#E5EAF2] bg-white shadow-sm transition-shadow hover:shadow-md">
-      {/* Thumbnail */}
+      {/* PDF preview thumbnail — rendered via PDF.js canvas */}
       <div
-        className="relative cursor-pointer overflow-hidden rounded-t-lg border-b border-[#E5EAF2] bg-gradient-to-b from-gray-50 to-gray-100"
+        className="relative cursor-pointer overflow-hidden rounded-t-lg border-b border-[#E5EAF2]"
         style={{ height: 160 }}
         onClick={onView}
       >
-        <div className="absolute inset-3 flex flex-col items-center justify-center rounded border border-gray-200 bg-white shadow-sm">
-          <svg
-            className="h-9 w-9 text-red-400"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z" />
-          </svg>
-          <span className="mt-1 text-[10px] font-bold tracking-widest text-red-400">
-            PDF
-          </span>
-          <span className="mt-1 px-2 text-center text-[9px] leading-tight text-gray-400 line-clamp-2">
-            {sheet.originalFileName}
-          </span>
-        </div>
-        <span className="absolute bottom-2 right-2 rounded bg-gray-700/60 px-1.5 py-0.5 text-[10px] text-white">
+        <PdfThumbnail
+          url={`/api/projects/${projectId}/plans/${sheet._id}/file`}
+          containerHeight={160}
+        />
+        <span className="absolute bottom-1.5 right-1.5 rounded bg-gray-700/60 px-1.5 py-0.5 text-[10px] text-white">
           p.{sheet.pageNumber}
         </span>
       </div>

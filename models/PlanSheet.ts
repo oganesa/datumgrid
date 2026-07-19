@@ -9,6 +9,13 @@ const PlanSheetSchema = new Schema(
     storedFileName: { type: String, required: true },
     discipline: { type: String, default: "" },
     order: { type: Number, default: 0 },
+    calibration: {
+      enabled: { type: Boolean, default: false },
+      scale: { type: Number, default: 0 },
+      unit: { type: String, default: "ft" },
+      pointA: { type: { x: Number, y: Number }, default: null },
+      pointB: { type: { x: Number, y: Number }, default: null },
+    },
   },
   { timestamps: true }
 );

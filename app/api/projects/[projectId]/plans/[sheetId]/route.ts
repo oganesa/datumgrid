@@ -19,14 +19,24 @@ export async function PATCH(req: Request, { params }: RouteParams) {
   const body = (await req.json()) as {
     sheetName?: string;
     discipline?: string;
+    calibration?: {
+      enabled?: boolean;
+      scale?: number;
+      unit?: string;
+      pointA?: { x: number; y: number } | null;
+      pointB?: { x: number; y: number } | null;
+    };
   };
 
-  const update: Record<string, string> = {};
+  const update: Record<string, unknown> = {};
   if (typeof body.sheetName === "string" && body.sheetName.trim()) {
     update.sheetName = body.sheetName.trim();
   }
   if (typeof body.discipline === "string") {
     update.discipline = body.discipline;
+  }
+  if (body.calibration) {
+    update.calibration = body.calibration;
   }
 
   const sheet = await PlanSheet.findOneAndUpdate(

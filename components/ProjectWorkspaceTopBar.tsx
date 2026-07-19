@@ -53,19 +53,8 @@ export default function ProjectWorkspaceTopBar() {
                 onClick={() => beginEdit()}
                 className="rounded border border-[#E5EAF2] bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
               >
-                Edit project
+                Edit Project
               </button>
-              {["Message", "Document", "Task", "To-do", "Daily log", "Time entry"].map(
-                (label) => (
-                  <button
-                    key={label}
-                    type="button"
-                    className="rounded border border-[#E5EAF2] bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
-                  >
-                    + {label}
-                  </button>
-                )
-              )}
             </>
           )}
         </div>
