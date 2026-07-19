@@ -3,6 +3,14 @@ import { connectDB } from "@/lib/mongodb";
 import AiChatMessage from "@/models/AiChatMessage";
 
 type RouteParams = { params: Promise<{ projectId: string }> };
+type ChatRole = "user" | "assistant";
+type ChatRequestBody = {
+  role: ChatRole;
+  content: string;
+  attachments?: { name: string; mimeType: string }[];
+  scheduleData?: unknown;
+  savedFiles?: unknown;
+};
 
 export async function GET(_req: Request, { params }: RouteParams) {
   const { projectId } = await params;
@@ -29,13 +37,11 @@ export async function POST(req: Request, { params }: RouteParams) {
   const { projectId } = await params;
   await connectDB();
 
-  const body = await req.json() as {
-    role: string;
-    content: string;
-    attachments?: { name: string; mimeType: string }[];
-    scheduleData?: unknown;
-    savedFiles?: unknown;
-  };
+  const body = (await req.json()) as Partial<ChatRequestBody>;
+
+  if (body.role !== "user" && body.role !== "assistant") {
+    return NextResponse.json({ error: "Invalid role" }, { status: 400 });
+  }
 
   const msg = await AiChatMessage.create({
     projectId,
