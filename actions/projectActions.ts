@@ -34,6 +34,8 @@ export async function createProject(formData: FormData) {
       if (cust?._id) customerId = cust._id as mongoose.Types.ObjectId;
     }
 
+    const storageFolderId = optionalString(formData, "storageFolderId");
+
     const projectData = {
       name: String(formData.get("name") ?? ""),
       number: String(formData.get("number") ?? ""),
@@ -48,6 +50,14 @@ export async function createProject(formData: FormData) {
       zipCode: optionalString(formData, "zipCode"),
       country: optionalString(formData, "country"),
       ...(customerId ? { customerId } : {}),
+      ...(storageFolderId
+        ? {
+            storageProvider: "google-drive",
+            storageFolderId,
+            storageFolderName: optionalString(formData, "storageFolderName"),
+            storageFolderUrl: optionalString(formData, "storageFolderUrl"),
+          }
+        : {}),
     };
 
     await Project.create(projectData);

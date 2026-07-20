@@ -110,3 +110,128 @@ export async function getDriveItem(id: string, accessToken: string): Promise<Dri
   if (!res.ok) return null;
   return res.json() as Promise<DriveItem>;
 }
+
+/** Create a subfolder inside a parent Drive folder. */
+export async function createDriveFolder(
+  name: string,
+  parentFolderId: string,
+  accessToken: string
+): Promise<DriveItem> {
+  const res = await fetch(
+    "https://www.googleapis.com/drive/v3/files?fields=id,name,mimeType,modifiedTime,webViewLink",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        mimeType: FOLDER_MIME,
+        parents: [parentFolderId],
+      }),
+    }
+  );
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Drive API ${res.status}: ${errBody}`);
+  }
+  return res.json() as Promise<DriveItem>;
+}
+
+/** Find a direct child folder by exact name, or null if none exists. */
+export async function findChildFolder(
+  parentFolderId: string,
+  name: string,
+  accessToken: string
+): Promise<DriveItem | null> {
+  const escapedName = name.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  const q = `name='${escapedName}' and '${parentFolderId}' in parents and mimeType='${FOLDER_MIME}' and trashed=false`;
+  const params = new URLSearchParams({
+    q,
+    fields: "files(id,name,mimeType,modifiedTime,webViewLink)",
+    pageSize: "1",
+  });
+  const res = await fetch(
+    `https://www.googleapis.com/drive/v3/files?${params.toString()}`,
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Drive API ${res.status}: ${errBody}`);
+  }
+  const data = await res.json() as { files: DriveItem[] };
+  return data.files?.[0] ?? null;
+}
+
+/** Upload a file's bytes into a Drive folder via multipart upload. */
+export async function uploadFileToDrive(params: {
+  folderId: string;
+  fileName: string;
+  mimeType: string;
+  data: Buffer;
+  accessToken: string;
+}): Promise<{ id: string; name: string; webViewLink?: string }> {
+  const { folderId, fileName, mimeType, data, accessToken } = params;
+
+  const boundary = "dg_boundary_" + Math.random().toString(36).slice(2);
+  const metadata = JSON.stringify({ name: fileName, parents: [folderId] });
+  const base64Data = data.toString("base64");
+
+  const body = [
+    `--${boundary}`,
+    "Content-Type: application/json; charset=UTF-8",
+    "",
+    metadata,
+    `--${boundary}`,
+    `Content-Type: ${mimeType || "application/octet-stream"}`,
+    "Content-Transfer-Encoding: base64",
+    "",
+    base64Data,
+    `--${boundary}--`,
+  ].join("\r\n");
+
+  const res = await fetch(
+    "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": `multipart/related; boundary="${boundary}"`,
+      },
+      body,
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Drive upload failed: ${res.status}: ${err}`);
+  }
+
+  return res.json() as Promise<{ id: string; name: string; webViewLink?: string }>;
+}
+
+/** Download a file's raw bytes from Drive. */
+export async function downloadFileFromDrive(fileId: string, accessToken: string): Promise<Buffer> {
+  const res = await fetch(
+    `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Drive download failed: ${res.status}: ${errBody}`);
+  }
+  return Buffer.from(await res.arrayBuffer());
+}
+
+/** Delete a file from Drive. A 404 (already gone) is treated as success. */
+export async function deleteDriveFile(fileId: string, accessToken: string): Promise<void> {
+  const res = await fetch(
+    `https://www.googleapis.com/drive/v3/files/${fileId}`,
+    { method: "DELETE", headers: { Authorization: `Bearer ${accessToken}` } }
+  );
+  if (!res.ok && res.status !== 404) {
+    const errBody = await res.text();
+    throw new Error(`Drive delete failed: ${res.status}: ${errBody}`);
+  }
+}

@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import fs from "fs/promises";
 
 import { connectDB } from "@/lib/mongodb";
 import PlanSheet from "@/models/PlanSheet";
-import { planFileAbsolutePath } from "@/lib/plan-storage";
+import { deletePlanFile } from "@/lib/storage-provider";
 
 type RouteParams = { params: Promise<{ projectId: string; sheetId: string }> };
 
@@ -72,12 +71,7 @@ export async function DELETE(_req: Request, { params }: RouteParams) {
     return NextResponse.json({ error: "Sheet not found." }, { status: 404 });
   }
 
-  try {
-    const absPath = planFileAbsolutePath(projectId, sheet.storedFileName);
-    await fs.unlink(absPath);
-  } catch {
-    // file may already be gone
-  }
+  await deletePlanFile(projectId, sheet);
 
   await sheet.deleteOne();
   return NextResponse.json({ ok: true });

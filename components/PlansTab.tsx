@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PdfThumbnail from "@/components/PdfThumbnail";
 import PdfViewer from "@/components/PdfViewer";
+import GoogleDriveFolderPicker from "@/components/GoogleDriveFolderPicker";
 
 const DISCIPLINES = [
   "Architectural",
@@ -79,27 +80,40 @@ export default function PlansTab({ projectId }: Props) {
     type: Parameter["type"];
   }>({ name: "", type: "count" });
   const [filterDiscipline, setFilterDiscipline] = useState("all");
+  const [storageFolderId, setStorageFolderId] = useState<string | null>(null);
+  const [driveConnected, setDriveConnected] = useState<boolean | null>(null);
+  const [showFolderPicker, setShowFolderPicker] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const fetchAll = useCallback(async () => {
-    const [sheetsRes, paramsRes] = await Promise.all([
-      fetch(`/api/projects/${projectId}/plans`),
-      fetch(`/api/projects/${projectId}/plans/parameters`),
-    ]);
-    if (sheetsRes.ok) {
-      const data = (await sheetsRes.json()) as { sheets: Sheet[] };
-      setSheets(data.sheets);
-    }
-    if (paramsRes.ok) {
-      const data = (await paramsRes.json()) as { parameters: Parameter[] };
-      setParameters(data.parameters);
-    }
-    setLoading(false);
-  }, [projectId]);
-
   useEffect(() => {
-    fetchAll();
-  }, [fetchAll]);
+    async function fetchAll() {
+      const [sheetsRes, paramsRes, storageRes, statusRes] = await Promise.all([
+        fetch(`/api/projects/${projectId}/plans`),
+        fetch(`/api/projects/${projectId}/plans/parameters`),
+        fetch(`/api/projects/${projectId}/storage`),
+        fetch(`/api/google-drive/status`),
+      ]);
+      if (sheetsRes.ok) {
+        const data = (await sheetsRes.json()) as { sheets: Sheet[] };
+        setSheets(data.sheets);
+      }
+      if (paramsRes.ok) {
+        const data = (await paramsRes.json()) as { parameters: Parameter[] };
+        setParameters(data.parameters);
+      }
+      if (storageRes.ok) {
+        const data = (await storageRes.json()) as { storageFolderId: string | null };
+        setStorageFolderId(data.storageFolderId);
+      }
+      if (statusRes.ok) {
+        const data = (await statusRes.json()) as { connected: boolean };
+        setDriveConnected(data.connected);
+      }
+      setLoading(false);
+    }
+    void fetchAll();
+  }, [projectId]);
 
   const handleUpload = async (file: File) => {
     setUploading(true);
@@ -112,7 +126,16 @@ export default function PlansTab({ projectId }: Props) {
         body: form,
       });
       if (!res.ok) {
-        const err = (await res.json()) as { error?: string };
+        const err = (await res.json()) as { error?: string; code?: string };
+        if (err.code === "NO_STORAGE_FOLDER") {
+          setPendingFile(file);
+          setShowFolderPicker(true);
+          return;
+        }
+        if (err.code === "DRIVE_NOT_CONNECTED") {
+          alert(`${err.error ?? "Connect Google Drive to upload plans."} Go to Settings → Documents.`);
+          return;
+        }
         alert(err.error ?? "Upload failed.");
         return;
       }
@@ -124,6 +147,25 @@ export default function PlansTab({ projectId }: Props) {
       setUploading(false);
       setUploadProgress(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
+  const saveStorageFolder = async (folder: { id: string; name: string; url: string }) => {
+    setShowFolderPicker(false);
+    const res = await fetch(`/api/projects/${projectId}/storage`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ folderId: folder.id, folderName: folder.name, folderUrl: folder.url }),
+    });
+    if (!res.ok) {
+      alert("Could not save storage folder.");
+      return;
+    }
+    setStorageFolderId(folder.id);
+    if (pendingFile) {
+      const retryFile = pendingFile;
+      setPendingFile(null);
+      void handleUpload(retryFile);
     }
   };
 
@@ -219,6 +261,30 @@ export default function PlansTab({ projectId }: Props) {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
+      {/* ── Storage folder banner ── */}
+      {!viewingSheet && !storageFolderId && (
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E5EAF2] bg-amber-50 px-4 py-2 text-sm">
+          <span className="text-amber-800">
+            No cloud storage folder configured for Plans — drawings can&apos;t be uploaded until one is set.
+          </span>
+          {driveConnected === false ? (
+            <a
+              href="/settings?section=documents"
+              className="shrink-0 rounded bg-amber-600 px-3 py-1 text-xs font-medium text-white hover:bg-amber-700"
+            >
+              Connect Google Drive
+            </a>
+          ) : (
+            <button
+              onClick={() => setShowFolderPicker(true)}
+              className="shrink-0 rounded bg-amber-600 px-3 py-1 text-xs font-medium text-white hover:bg-amber-700"
+            >
+              Choose Google Drive folder
+            </button>
+          )}
+        </div>
+      )}
+
       {/* ── Toolbar ── */}
       {!viewingSheet && (
         <div className="flex flex-wrap items-center gap-2 border-b border-[#E5EAF2] bg-white px-4 py-2">
@@ -536,6 +602,21 @@ export default function PlansTab({ projectId }: Props) {
           </div>
         )}
       </div>
+
+      {showFolderPicker && (
+        <GoogleDriveFolderPicker
+          multiSelect={false}
+          confirmLabel="Use this folder"
+          onSelect={(picks) => {
+            if (picks[0]) void saveStorageFolder(picks[0]);
+            else setShowFolderPicker(false);
+          }}
+          onClose={() => {
+            setShowFolderPicker(false);
+            setPendingFile(null);
+          }}
+        />
+      )}
     </div>
   );
 }

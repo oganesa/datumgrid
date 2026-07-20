@@ -6,7 +6,12 @@ const PlanSheetSchema = new Schema(
     originalFileName: { type: String, required: true },
     sheetName: { type: String, required: true },
     pageNumber: { type: Number, required: true },
-    storedFileName: { type: String, required: true },
+    /** Legacy local-disk filename. Only meaningful when storageProvider is "local". */
+    storedFileName: { type: String, required: false, default: "" },
+    /** Where the file actually lives. "local" covers legacy rows (incl. missing storageProvider). */
+    storageProvider: { type: String, default: "local" },
+    storageFileId: { type: String, default: "" },
+    storageFileUrl: { type: String, default: "" },
     discipline: { type: String, default: "" },
     order: { type: Number, default: 0 },
     calibration: {

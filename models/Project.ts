@@ -20,6 +20,14 @@ const ProjectSchema = new Schema(
     customerId: { type: Schema.Types.ObjectId, ref: "Customer", default: null },
     /** Public URL path e.g. /uploads/projects/{id}/cover.jpg */
     coverImageUrl: { type: String, default: null },
+    /** Connected cloud storage for this project's files (e.g. plan drawings). */
+    storageProvider: { type: String, default: null },
+    storageFolderId: { type: String, default: null },
+    storageFolderName: { type: String, default: null },
+    storageFolderUrl: { type: String, default: null },
+    /** Cached "Plans" subfolder, lazily created under storageFolderId on first upload. */
+    storagePlansFolderId: { type: String, default: null },
+    storagePlansFolderUrl: { type: String, default: null },
   },
   { timestamps: true }
 );

@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
 import mongoose from "mongoose";
 
 import { connectDB } from "@/lib/mongodb";
 import PlanSheet from "@/models/PlanSheet";
-import { planFileAbsolutePath } from "@/lib/plan-storage";
+import { downloadPlanFile, StorageConfigError } from "@/lib/storage-provider";
 
 type RouteContext = {
   params: Promise<{ projectId: string; sheetId: string }>;
@@ -24,21 +23,22 @@ export async function GET(_req: Request, context: RouteContext) {
     return NextResponse.json({ error: "Not found." }, { status: 404 });
   }
 
-  const s = sheet as { storedFileName: string; sheetName: string };
-
-  let absPath: string;
-  try {
-    absPath = planFileAbsolutePath(projectId, s.storedFileName);
-  } catch {
-    return NextResponse.json({ error: "Invalid file path." }, { status: 400 });
-  }
+  const s = sheet as {
+    storedFileName?: string;
+    storageProvider?: string;
+    storageFileId?: string;
+    sheetName: string;
+  };
 
   let buf: Buffer;
   try {
-    buf = await fs.readFile(absPath);
-  } catch {
+    buf = await downloadPlanFile(projectId, s);
+  } catch (error) {
+    if (error instanceof StorageConfigError) {
+      return NextResponse.json({ code: error.code, error: error.message }, { status: 401 });
+    }
     return NextResponse.json(
-      { error: "File missing on disk." },
+      { error: s.storageProvider === "google-drive" ? "File missing in Google Drive." : "File missing on disk." },
       { status: 404 }
     );
   }

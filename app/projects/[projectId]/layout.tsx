@@ -24,6 +24,7 @@ export default async function ProjectWorkspaceLayout({
     <div className="flex h-[calc(100vh-4rem)] flex-col bg-[#F5F5F5]">
       <ProjectWorkspaceProvider initialProject={project}>
         <ProjectWorkspaceHeaderBridge />
+        <ProjectWorkspaceTopBar />
         <div className="flex-1 min-h-0 overflow-hidden">{children}</div>
       </ProjectWorkspaceProvider>
     </div>
